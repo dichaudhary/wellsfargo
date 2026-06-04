@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-icons",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-03T09:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/mortgage/",
+    "originPage": "Wells Fargo Home Mortgage landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "promo-grid",
+    "imagePattern": "icon"
+  },
+  "contentPattern": {
+    "structure": "icon + heading + description + link",
+    "buttonCount": 1,
+    "imageCount": 1,
+    "columns": 4
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "4-up promo grids with small icons",
+      "feature highlights with icon + text + link",
+      "homebuying steps, refinance benefits, similar promo cards"
+    ],
+    "notSuitableFor": [
+      "card grids using full-bleed photography (use cards-image)",
+      "text-only card grids (use cards-text)",
+      "testimonial layouts (use cards-testimonials)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/mortgage/index"],
+    "reuseCount": 2,
+    "lastUsed": "2026-06-03T09:35:00.000Z"
+  }
+}

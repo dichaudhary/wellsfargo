@@ -1,0 +1,39 @@
+{
+  "variantName": "cards-contact",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-03T09:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/mortgage/",
+    "originPage": "Wells Fargo Home Mortgage landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "white",
+    "density": "compact",
+    "purpose": "contact-info",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "heading + (phone-and-hours | description + CTA)",
+    "buttonCount": 1,
+    "imageCount": 0,
+    "columns": 4
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "contact / consultant card rows",
+      "mixed phone+hours and description+CTA card layouts",
+      "service entry-point grids"
+    ],
+    "notSuitableFor": [
+      "promo grids that use icons or images per card",
+      "testimonial layouts"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/mortgage/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-03T09:35:00.000Z"
+  }
+}

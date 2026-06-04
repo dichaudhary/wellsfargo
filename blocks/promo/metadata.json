@@ -1,0 +1,39 @@
+{
+  "variantName": "promo",
+  "baseBlock": "promo",
+  "version": "1.0.0",
+  "created": "2026-06-03T09:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/personal-loans/",
+    "originPage": "Wells Fargo Personal Loans landing page (gap-section reference)",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "grey",
+    "density": "spacious",
+    "purpose": "feature-callout",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image (left) + heading + description + CTA (right)",
+    "buttonCount": 1,
+    "imageCount": 1,
+    "columns": 2
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "feature/rate callouts on tinted background",
+      "side-by-side image + content marketing bands",
+      "single-row promo highlights"
+    ],
+    "notSuitableFor": [
+      "repeating cards or grids (use cards-* variants)",
+      "full-bleed hero banners (use hero block)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/mortgage/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-03T09:35:00.000Z"
+  }
+}

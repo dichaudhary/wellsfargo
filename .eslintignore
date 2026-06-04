@@ -1,2 +1,6 @@
 helix-importer-ui
 *.min.js
+
+# Importer tooling (third-party AEM importer runtime + bundles).
+tools/importer/scripts/
+tools/importer/*.bundle.js

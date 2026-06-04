@@ -1,0 +1,159 @@
+/*
+ * Accordion block — Wells Fargo "Show / Hide" content style.
+ *
+ * Each accordion item has its own border-top, no card chrome.
+ * The +/- icon sits on the LEFT of the question (flush with the content edge).
+ * The question text and body are indented to clear the icon.
+ *
+ * Source values extracted from https://www.wellsfargo.com/mortgage/
+ * (details.show-hide-content-wrapper).
+ */
+
+.accordion {
+  font-family: var(--body-font-family);
+  color: var(--text-color);
+}
+
+/* Each item is one row in the accordion, providing the border-top divider */
+.accordion .accordion-item {
+  border-top: 1px solid #e2dede;
+  position: relative;
+}
+
+/* Last item gets a closing border-bottom so the stack is bracketed */
+.accordion .accordion-item:last-child {
+  border-bottom: 1px solid #e2dede;
+}
+
+/* Reset native details box */
+.accordion details {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  position: relative;
+}
+
+/* Summary = the clickable question header */
+.accordion summary {
+  list-style: none;
+  cursor: pointer;
+  position: relative;
+  padding: 16px 8px 16px 32px; /* room on the left for the +/- icon */
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--heading-color);
+}
+
+.accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+/* +/- icon drawn with CSS — horizontal bar */
+.accordion summary::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 16px;
+  height: 2px;
+  background-color: var(--heading-color);
+  transform: translateY(-50%);
+  transition: transform 0.15s ease;
+}
+
+/* + icon vertical bar — visible when closed, hidden when open */
+.accordion summary::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  width: 2px;
+  height: 16px;
+  background-color: var(--heading-color);
+  transform: translateY(-50%);
+  transition: transform 0.15s ease;
+}
+
+/* Open state: hide the vertical bar so only the horizontal "−" remains */
+.accordion details[open] summary::after {
+  transform: translateY(-50%) scaleY(0);
+}
+
+/* Author content in summary may be wrapped in <p> by EDS — strip the margins */
+.accordion summary p {
+  margin: 0;
+  padding: 0;
+  display: inline;
+  font: inherit;
+  color: inherit;
+}
+
+/* <strong> in summary should not bump weight when closed —
+ * source uses regular weight when closed and semibold when open. */
+.accordion summary strong {
+  font-weight: 400;
+}
+
+.accordion details[open] summary strong {
+  font-weight: 600;
+}
+
+/* Hover/focus on the summary */
+.accordion summary:hover,
+.accordion summary:focus-visible {
+  outline: none;
+}
+
+.accordion summary:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: -2px;
+}
+
+/* Body wrapper (the second cell content, wrapped by accordion.js) */
+.accordion details > div {
+  padding: 0 8px 16px 32px; /* indent matches summary text alignment */
+  margin: 0;
+  font-size: var(--body-font-size-m);
+  color: var(--text-color);
+  line-height: var(--body-line-height);
+}
+
+/* Body paragraphs */
+.accordion details > div p {
+  margin: 0 0 16px;
+  font-size: var(--body-font-size-m);
+  color: var(--text-color);
+  line-height: var(--body-line-height);
+}
+
+.accordion details > div p:last-child {
+  margin-bottom: 0;
+}
+
+/* Body bullet list */
+.accordion details > div ul,
+.accordion details > div ol {
+  margin: 0 0 16px;
+  padding-left: 24px;
+}
+
+.accordion details > div li {
+  margin: 4px 0;
+  font-size: var(--body-font-size-m);
+  color: var(--text-color);
+  line-height: var(--body-line-height);
+}
+
+/* Brand purple links inside answer text */
+.accordion details > div a:any-link {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
+.accordion details > div a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}

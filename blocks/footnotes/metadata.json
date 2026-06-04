@@ -1,0 +1,39 @@
+{
+  "variantName": "footnotes",
+  "baseBlock": "footnotes",
+  "version": "1.0.0",
+  "created": "2026-06-03T09:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/mortgage/",
+    "originPage": "Wells Fargo Home Mortgage landing page",
+    "blockPosition": "bottom"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "footnotes",
+    "imagePattern": "icon-optional"
+  },
+  "contentPattern": {
+    "structure": "numbered list of footnote items + optional disclosure paragraphs",
+    "buttonCount": 0,
+    "imageCount": 1,
+    "columns": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "page-bottom numbered footnotes referenced by sup links",
+      "regulatory disclosure blocks",
+      "Equal Housing Lender / division statements"
+    ],
+    "notSuitableFor": [
+      "general body content lists",
+      "navigation lists"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/mortgage/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-03T09:35:00.000Z"
+  }
+}

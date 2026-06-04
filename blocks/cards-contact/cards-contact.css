@@ -1,0 +1,124 @@
+/*
+ * cards-contact — 4-up grid of contact cards (Wells Fargo "Talk to a mortgage
+ * consultant" pattern). Each card has a heading plus either a phone number with
+ * hours of operation, or descriptive text with a CTA button. Content is
+ * left-aligned inside each card; cards have a soft cream background, rounded
+ * corners (10px), and a subtle drop shadow.
+ *
+ * Values extracted from the source page computed styles:
+ *   card bg:     rgb(249, 247, 246)
+ *   border-radius: 10px
+ *   box-shadow:  rgba(0, 0, 0, 0.3) 0 1px 5px 0
+ *   inner padding: 17px 16px 0   (last <p> keeps its 17px bottom margin)
+ *   gap between cards: 32px
+ *   h3:  24px / 1.42 / 600  (heading-color)
+ *   p:   18px / 1.22 / 400  (heading-color)
+ *   cta: outlined pill, 1px solid var(--text-color), 24px radius, 9px 16px
+ */
+
+/* List wrapper */
+.cards-contact > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Card */
+.cards-contact > ul > li {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f7f6;
+  border-radius: 10px;
+  box-shadow: rgb(0 0 0 / 30%) 0 1px 5px 0;
+  text-align: left;
+}
+
+/* Card body — inner padding wrapper. Bottom is 0 because the last <p> keeps
+ * its 17px bottom margin (matching the source spacing rhythm). */
+.cards-contact .cards-contact-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 17px 16px 0;
+  text-align: left;
+}
+
+/* Headings — match source size/weight/color, override the global h3 spacing */
+.cards-contact .cards-contact-card-body h3 {
+  margin: 0 0 17px;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.42;
+  color: var(--heading-color);
+  text-align: left;
+}
+
+/* Paragraphs — phone numbers, hours, descriptions */
+.cards-contact .cards-contact-card-body p {
+  margin: 0 0 17px;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.22;
+  color: var(--heading-color);
+  text-align: left;
+}
+
+/* Plain links inside text — body color, no underline by default */
+.cards-contact .cards-contact-card-body a:any-link {
+  color: var(--text-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cards-contact .cards-contact-card-body a:hover {
+  text-decoration: underline;
+}
+
+/* CTA button — outlined, dark border, white background, pill-shaped.
+ * Override the global a.button styles to match the source's secondary style.
+ * The `main` ancestor selector boosts specificity to override styles.css
+ * `main a.button:any-link`. */
+main .cards-contact .cards-contact-card-body a.cards-contact-cta:any-link {
+  display: inline-block;
+  align-self: flex-start;
+  margin: 0;
+  padding: 9px 16px;
+  background-color: #fff;
+  border: 1px solid var(--text-color);
+  border-radius: 24px;
+  color: var(--text-color);
+  font-family: var(--heading-font-family);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.29;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+}
+
+main .cards-contact .cards-contact-card-body a.cards-contact-cta:hover,
+main .cards-contact .cards-contact-card-body a.cards-contact-cta:focus-visible {
+  background-color: var(--text-color);
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+/* Tablet — 2 columns */
+@media (width >= 600px) {
+  .cards-contact > ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Desktop — 4 columns side by side, matches source 1280px layout (32px gap) */
+@media (width >= 900px) {
+  .cards-contact > ul {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+}

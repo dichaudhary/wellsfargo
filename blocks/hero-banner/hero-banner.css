@@ -1,0 +1,101 @@
+/*
+ * hero-banner block
+ * Source: Wells Fargo .rsk-marquee-container (https://www.wellsfargo.com/mortgage/)
+ *
+ * Layout: full-width banner image stacked above an off-white "card" containing the
+ * heading, with the card overlapping the bottom of the image via negative margin-top.
+ *
+ * EDS-decorated DOM:
+ *   .hero-banner.block
+ *     > div                           (single row)
+ *       > div.hero-banner-image       (picture)
+ *       > div.hero-banner-content     (h2)
+ */
+
+.hero-banner {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* The single row: stack image then content vertically */
+.hero-banner > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Image cell -- sits at top, full container width */
+.hero-banner .hero-banner-image {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.hero-banner .hero-banner-image picture {
+  display: block;
+  width: 100%;
+}
+
+.hero-banner .hero-banner-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+/* Content cell -- the off-white card. Overlaps the image with a negative margin. */
+.hero-banner .hero-banner-content {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  margin: -21px 0 0;
+  padding: 24px;
+  background-color: rgb(249, 248, 246);
+  border-radius: 10px;
+  text-align: center;
+  color: var(--heading-color);
+}
+
+.hero-banner .hero-banner-content h1,
+.hero-banner .hero-banner-content h2,
+.hero-banner .hero-banner-content h3 {
+  margin: 0;
+  padding: 8px 0;
+  color: var(--heading-color);
+  font-family: var(--light-font-family);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.hero-banner .hero-banner-content p {
+  margin: 8px 0 0;
+  text-align: center;
+  color: var(--text-color);
+}
+
+@media (width >= 900px) {
+  .hero-banner .hero-banner-content {
+    /* On desktop the card is narrower than the image and overlaps further */
+    width: 85%;
+    max-width: 1083px;
+    margin: -61px auto 0;
+    padding: 24px 56px;
+  }
+
+  .hero-banner .hero-banner-content h1,
+  .hero-banner .hero-banner-content h2,
+  .hero-banner .hero-banner-content h3 {
+    font-size: 34px;
+    line-height: 1.35;
+    padding: 12px 0;
+  }
+}

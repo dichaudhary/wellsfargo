@@ -1,0 +1,39 @@
+{
+  "variantName": "hero-banner",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-06-03T10:30:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/mortgage/",
+    "originPage": "Wells Fargo Home Mortgage landing page",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "image-banner",
+    "density": "spacious",
+    "purpose": "hero",
+    "imagePattern": "full-bleed"
+  },
+  "contentPattern": {
+    "structure": "full-bleed background image + overlay heading",
+    "buttonCount": 0,
+    "imageCount": 1,
+    "columns": 2
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "full-width marquee banners with overlay heading",
+      "page-top promotional banners with image background",
+      "secondary hero callouts where the page already has an H1"
+    ],
+    "notSuitableFor": [
+      "hero with form or rich CTA stack (use hero block)",
+      "side-by-side image + content callout (use promo)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/mortgage/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-03T10:30:00.000Z"
+  }
+}

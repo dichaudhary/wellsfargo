@@ -1,0 +1,171 @@
+/*
+ * cards-icons block — Wells Fargo small-promo-combined visual.
+ *
+ * Source: https://www.wellsfargo.com/mortgage/ — .small-promo-combined
+ *   .ps-marketing-small-promo-items > .ps-marketing-small-promo-item
+ *
+ * EDS DOM (after decorate):
+ *   .cards-icons.block > ul > li
+ *     > .cards-icons-card-icon > picture > img
+ *     > .cards-icons-card-body > h3 + p (description) + p > a (CTA, last)
+ *
+ * Layout: 1-up (mobile) -> 2-up (>=600px) -> 4-up (>=900px).
+ * Each card has a soft beige/peach gradient background, rounded corners,
+ * subtle shadow, left-aligned content, small icon at top.
+ */
+
+.cards-icons > ul {
+  list-style: none;
+  margin: 32px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.cards-icons > ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
+  padding: 16px 16px 24px;
+  background-color: var(--background-color);
+  background-image: linear-gradient(
+    135deg,
+    rgb(252 244 232 / 100%) 0%,
+    rgb(255 248 240 / 100%) 35%,
+    rgb(255 252 245 / 100%) 70%,
+    rgb(255 255 255 / 100%) 100%
+  );
+  border-radius: 10px;
+  box-shadow: rgb(0 0 0 / 25%) 0 1px 4px 0;
+}
+
+/* Icon — small (56px), left-aligned, no centering */
+.cards-icons .cards-icons-card-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.cards-icons .cards-icons-card-icon picture,
+.cards-icons .cards-icons-card-icon img {
+  display: block;
+  width: 56px;
+  height: 56px;
+  max-width: 56px;
+  max-height: 56px;
+  object-fit: contain;
+}
+
+/* Body — heading, description, CTA link */
+.cards-icons .cards-icons-card-body {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.cards-icons .cards-icons-card-body h3 {
+  font-family: var(--body-font-family);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--heading-color);
+  line-height: 25px;
+  margin: 12px 0 8px;
+  padding: 0;
+}
+
+.cards-icons .cards-icons-card-body p {
+  font-family: var(--body-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--heading-color);
+  line-height: 1.28;
+  margin: 0;
+  padding: 0;
+}
+
+/* Description paragraph spacing — separate from the CTA paragraph */
+.cards-icons .cards-icons-card-body p + p {
+  margin-top: 8px;
+}
+
+/* Footnote superscript link inside description — keep small, inline */
+.cards-icons .cards-icons-card-body p sup {
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: super;
+}
+
+.cards-icons .cards-icons-card-body p sup a:any-link {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+/* CTA "Learn more" link — last <p> with an <a> in the body.
+ * The EDS button-container reset in styles.css already keeps it inline. */
+.cards-icons .cards-icons-card-body p:last-child {
+  margin-top: 12px;
+}
+
+.cards-icons .cards-icons-card-body p:last-child a:any-link {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--body-font-family);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--link-color);
+  line-height: 22px;
+  text-decoration: none;
+}
+
+.cards-icons .cards-icons-card-body p:last-child a:any-link::after {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-left: 8px;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+  transform: rotate(45deg);
+}
+
+.cards-icons .cards-icons-card-body p:last-child a:hover,
+.cards-icons .cards-icons-card-body p:last-child a:focus-visible {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* Reset EDS button auto-decoration — these CTAs are plain text links, not buttons */
+.cards-icons main .button-container,
+.cards-icons .cards-icons-card-body p.button-container {
+  display: block;
+  margin: 12px 0 0;
+}
+
+.cards-icons .cards-icons-card-body a.button:any-link {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+  white-space: normal;
+  color: var(--link-color);
+}
+
+@media (width >= 600px) {
+  .cards-icons > ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-icons > ul {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}

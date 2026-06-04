@@ -1,0 +1,58 @@
+/*
+ * Wells Fargo brand tokens
+ * Extracted from https://www.wellsfargo.com/mortgage/
+ *
+ * Note: Wells Fargo Sans is a proprietary font not licensed for redistribution.
+ * The fallback stack (Arial, Helvetica, sans-serif) closely matches its visual
+ * weight on standard systems.
+ */
+
+:root {
+  /* Fonts */
+  --heading-font-family: 'Wells Fargo Sans SemiBold', Arial, Helvetica, sans-serif;
+  --body-font-family: 'Wells Fargo Sans Regular', Arial, Helvetica, sans-serif;
+  --light-font-family: 'Wells Fargo Sans Light', Arial, Helvetica, sans-serif;
+
+  /* Colors — brand palette */
+  --background-color: #fff;
+  --text-color: #3b3331;
+  --text-muted-color: #787070;
+  --heading-color: #141414;
+  --link-color: #5a469b;
+  --link-hover-color: #3c2d6e;
+  --brand-red: #d50032;
+  --brand-purple: #5a469b;
+
+  /* Section background variants */
+  --bg-light: #f5f5f5;
+  --bg-white: #fff;
+  --bg-grey: #f5f5f5;
+  --bg-dark: #212121;
+
+  /* Spacing */
+  --section-padding: 40px 24px;
+  --content-max-width: 1200px;
+  --nav-height: 75px;
+
+  /* Heading sizes (mobile) */
+  --heading-size-xxl: 36px;
+  --heading-size-xl: 28px;
+  --heading-size-l: 22px;
+  --heading-size-m: 20px;
+  --heading-size-s: 18px;
+  --heading-size-xs: 16px;
+
+  /* Body type */
+  --body-font-size-m: 17px;
+  --body-font-size-s: 16px;
+  --body-line-height: 1.4;
+}
+
+@media (min-width: 900px) {
+  :root {
+    --heading-size-xxl: 40px;
+    --heading-size-xl: 32px;
+    --heading-size-l: 24px;
+    --section-padding: 56px 32px;
+  }
+}

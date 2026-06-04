@@ -1,0 +1,73 @@
+/*
+ * cards-testimonials
+ * Source: https://www.wellsfargo.com/mortgage/  "Hear from our customers"
+ *
+ * Layout: a 2-up grid of testimonial cards on a white section.
+ * Each card has the customer's quote followed by their bold name.
+ * The cards have no borders, shadows, or background — text sits directly
+ * on the section background and is centered.
+ */
+
+.cards-testimonials > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  justify-content: center;
+}
+
+.cards-testimonials > ul > li {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.cards-testimonials .cards-testimonials-card-body {
+  display: block;
+  text-align: center;
+}
+
+.cards-testimonials .cards-testimonials-card-body p {
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 22px;
+  color: var(--heading-color);
+  margin: 0 0 17px;
+  text-align: center;
+}
+
+.cards-testimonials .cards-testimonials-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+.cards-testimonials .cards-testimonials-card-body .cards-testimonials-attribution {
+  font-style: normal;
+  font-weight: 400;
+  margin-top: 16px;
+}
+
+.cards-testimonials .cards-testimonials-card-body .cards-testimonials-attribution strong {
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  color: var(--heading-color);
+}
+
+@media (width >= 900px) {
+  .cards-testimonials > ul {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .cards-testimonials > ul > li {
+    flex: 1 0 calc(50% - 16px);
+    max-width: calc(50% - 16px);
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "status": "success",
+  "url": "https://www.wellsfargo.com/personal-loans/",
+  "path": "personal-loans",
+  "timestamp": "2026-06-03T15:59:36.567Z",
+  "title": "Personal loans: See options and apply online | Wells Fargo",
+  "template": "product-landing-page",
+  "blocks": [
+    "hero-banner",
+    "cards-icons",
+    "cards-image",
+    "cards-image",
+    "cards-icon-bar",
+    "cards-link-list",
+    "accordion",
+    "footnotes",
+    "promo"
+  ]
+}

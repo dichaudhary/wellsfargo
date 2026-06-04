@@ -1,0 +1,39 @@
+{
+  "variantName": "accordion",
+  "baseBlock": "accordion",
+  "version": "1.0.0",
+  "created": "2026-06-03T10:30:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/mortgage/",
+    "originPage": "Wells Fargo Home Mortgage landing page (Common mortgage questions)",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "white",
+    "density": "compact",
+    "purpose": "faq",
+    "imagePattern": "none"
+  },
+  "contentPattern": {
+    "structure": "expandable Q&A items — question summary + collapsible answer body",
+    "buttonCount": 0,
+    "imageCount": 0,
+    "columns": 2
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "FAQ sections with collapsible Q&A",
+      "expandable disclosure groups",
+      "stepwise progressive-disclosure content"
+    ],
+    "notSuitableFor": [
+      "tab-style switching content (use tabs)",
+      "single-question call-outs (use default content)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/mortgage/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-03T10:30:00.000Z"
+  }
+}

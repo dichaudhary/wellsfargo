@@ -1,0 +1,173 @@
+/*
+ * cards-icon-bar
+ * Horizontal contact help bar (Call us, Find a location, Make an appointment).
+ * Each item shows a circular sprite icon next to its label; some items expand
+ * to reveal additional content. Icons come from the Wells Fargo sprite sheet
+ * (40x40 cells) on the source. We embed the sprite reference here so this
+ * matches the original rendering.
+ */
+
+.cards-icon-bar > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--body-font-family);
+}
+
+.cards-icon-bar > ul > li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Toggle button (Call us, Find a location) and direct link (Make an appointment) share layout */
+.cards-icon-bar .cards-icon-bar-toggle,
+.cards-icon-bar .cards-icon-bar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 0 10px 0 0;
+  background: transparent;
+  border: 0;
+  font-family: var(--heading-font-family);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+main .cards-icon-bar a.cards-icon-bar-link:any-link {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0 10px 0 0;
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 600;
+  white-space: normal;
+}
+
+.cards-icon-bar .cards-icon-bar-toggle {
+  color: var(--heading-color);
+}
+
+/* Label */
+.cards-icon-bar .cards-icon-bar-label {
+  flex: 1 1 auto;
+}
+
+.cards-icon-bar .cards-icon-bar-toggle:hover .cards-icon-bar-label,
+.cards-icon-bar .cards-icon-bar-link:hover .cards-icon-bar-label {
+  text-decoration: underline;
+}
+
+/* Icon: 40x40 circular grey cell holding an inline SVG glyph.
+   Source uses a CDN sprite (responsive-sprite-v15.png) at the same dimensions
+   and offsets; we mirror the visual treatment with inline SVGs to avoid a
+   cross-origin asset dependency. */
+.cards-icon-bar .cards-icon-bar-icon {
+  flex: 0 0 auto;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background-color: var(--bg-light);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 22px 22px;
+  border-radius: 50%;
+}
+
+.cards-icon-bar .cards-icon-bar-icon.is-call {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b3331' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'/></svg>");
+}
+
+.cards-icon-bar .cards-icon-bar-icon.is-location {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b3331' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/><circle cx='12' cy='10' r='3'/></svg>");
+}
+
+.cards-icon-bar .cards-icon-bar-icon.is-appointment {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b3331' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2'/><line x1='16' y1='2' x2='16' y2='6'/><line x1='8' y1='2' x2='8' y2='6'/><line x1='3' y1='10' x2='21' y2='10'/><polyline points='9 14 11 16 15 12'/></svg>");
+}
+
+/* Chevron indicator for collapsible items */
+.cards-icon-bar .cards-icon-bar-chevron {
+  flex: 0 0 auto;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.cards-icon-bar .cards-icon-bar-toggle[aria-expanded="true"] .cards-icon-bar-chevron {
+  transform: translateY(2px) rotate(-135deg);
+}
+
+/* Expanded content */
+.cards-icon-bar .cards-icon-bar-content {
+  margin: 12px 0 0 52px; /* align with label (icon 40 + gap 12) */
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-s);
+  line-height: 1.4;
+  color: var(--text-color);
+}
+
+.cards-icon-bar .cards-icon-bar-content[hidden] {
+  display: none;
+}
+
+.cards-icon-bar .cards-icon-bar-content p {
+  margin: 0 0 0.5em;
+  font-size: var(--body-font-size-s);
+  color: var(--text-color);
+}
+
+.cards-icon-bar .cards-icon-bar-content p:last-child {
+  margin-bottom: 0;
+}
+
+main .cards-icon-bar .cards-icon-bar-content a:any-link {
+  color: var(--link-color);
+  font-weight: 600;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+}
+
+main .cards-icon-bar .cards-icon-bar-content a:hover {
+  text-decoration: underline;
+}
+
+/* Tablet/Desktop: horizontal 3-up layout */
+@media (width >= 600px) {
+  .cards-icon-bar > ul {
+    flex-flow: row wrap;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .cards-icon-bar > ul > li {
+    flex: 1 1 240px;
+    min-width: 240px;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-icon-bar > ul {
+    gap: 32px;
+  }
+
+  .cards-icon-bar > ul > li {
+    flex: 0 1 312px;
+  }
+}

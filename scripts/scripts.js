@@ -114,6 +114,58 @@ function decorateButtons(main) {
 }
 
 /**
+ * Apply <div class="section-metadata"> blocks as classes/attributes on the
+ * containing <div class="section">. Each row inside the metadata block is a
+ * key/value pair: the value of the row whose first cell is "style" becomes a
+ * space-separated list of classes on the section; any other key is added as a
+ * data-* attribute. The metadata block element is removed once applied.
+ */
+function applyMetadataToSection(meta, target) {
+  [...meta.children].forEach((row) => {
+    if (row.children.length !== 2) return;
+    const key = row.children[0].textContent.trim().toLowerCase();
+    const val = row.children[1].textContent.trim();
+    if (!key || !val) return;
+    if (key === 'style') {
+      val.split(',').map((v) => v.trim()).filter(Boolean).forEach((cls) => {
+        target.classList.add(cls.toLowerCase().replace(/\s+/g, '-'));
+      });
+    } else {
+      target.dataset[key.replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = val;
+    }
+  });
+}
+
+function decorateSectionMetadata(main) {
+  // Pass 1: section-metadata block sitting alongside other content in the same section.
+  main.querySelectorAll(':scope > div.section').forEach((section) => {
+    const metas = section.querySelectorAll(':scope > div > div.section-metadata');
+    metas.forEach((meta) => {
+      applyMetadataToSection(meta, section);
+      const wrapper = meta.parentElement;
+      meta.remove();
+      if (wrapper && wrapper.children.length === 0) wrapper.remove();
+    });
+  });
+
+  // Pass 2: section-metadata that became its own section (orphan section). Apply
+  // its values to the PREVIOUS sibling section, then remove the orphan. An
+  // orphan is a .section whose only block is a .section-metadata.
+  main.querySelectorAll(':scope > div.section').forEach((section) => {
+    const wrappers = section.querySelectorAll(':scope > div');
+    if (wrappers.length !== 1) return;
+    const inner = wrappers[0];
+    const blocks = inner.querySelectorAll(':scope > div');
+    if (blocks.length !== 1 || !blocks[0].matches('.section-metadata')) return;
+    const prev = section.previousElementSibling;
+    if (prev && prev.matches('div.section')) {
+      applyMetadataToSection(blocks[0], prev);
+    }
+    section.remove();
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -122,6 +174,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionMetadata(main);
   decorateBlocks(main);
   decorateButtons(main);
 }

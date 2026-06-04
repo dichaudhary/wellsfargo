@@ -1,0 +1,39 @@
+{
+  "variantName": "cards-text",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-03T09:35:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/mortgage/",
+    "originPage": "Wells Fargo Home Mortgage landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "tools-list",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "heading + description + link",
+    "buttonCount": 1,
+    "imageCount": 0,
+    "columns": 4
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "text-only resource/tool grids",
+      "navigation summaries with description and link",
+      "compact promo grids without icons or images"
+    ],
+    "notSuitableFor": [
+      "icon-led promo grids (use cards-icons)",
+      "image-led card layouts (use cards-image)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/mortgage/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-03T09:35:00.000Z"
+  }
+}

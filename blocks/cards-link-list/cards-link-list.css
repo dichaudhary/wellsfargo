@@ -1,0 +1,113 @@
+/*
+ * cards-link-list block
+ * Source: Wells Fargo "Helpful resources" 3-up grouped link directory
+ * https://www.wellsfargo.com/personal-loans/
+ *
+ * Decorated DOM:
+ *   .cards-link-list.block
+ *     > ul
+ *       > li.cards-link-list-card
+ *         > div
+ *           > h3
+ *           > ul (nested links)
+ *             > li > a
+ */
+
+/* Outer card grid */
+.cards-link-list > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+/* Each card column */
+.cards-link-list-card {
+  background-color: transparent;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.cards-link-list-card > div {
+  padding: 0;
+}
+
+/* Column heading */
+.cards-link-list-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  line-height: 1.42;
+  color: var(--heading-color);
+  margin: 0 0 17px;
+  padding: 0;
+  text-align: left;
+}
+
+/* Inner link list */
+.cards-link-list-card ul {
+  display: block;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Each link row */
+.cards-link-list-card li {
+  margin: 0 0 8.5px;
+  padding: 0 0 0 30px; /* leave room for chevron + spacing */
+  font-size: 18px;
+  line-height: 1.22;
+  position: relative;
+  list-style: none;
+}
+
+/* Link styling */
+.cards-link-list-card a {
+  color: var(--link-color);
+  font-size: 18px;
+  font-weight: 400;
+  font-family: var(--heading-font-family); /* SemiBold for slight weight */
+  text-decoration: none;
+  line-height: 1.28;
+  display: inline;
+}
+
+.cards-link-list-card a:hover,
+.cards-link-list-card a:focus-visible {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* Chevron arrow rendered as CSS (border-based right-pointing arrow head + line) */
+.cards-link-list-card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.45em;
+  width: 14px;
+  height: 14px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%235a469b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><line x1='1' y1='7' x2='13' y2='7'/><polyline points='8,2 13,7 8,12'/></svg>");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Tablet & Desktop: 3-up grid */
+@media (width >= 600px) {
+  .cards-link-list > ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (width >= 900px) {
+  .cards-link-list > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 20px 0;
+  }
+}

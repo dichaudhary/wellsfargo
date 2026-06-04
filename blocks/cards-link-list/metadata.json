@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-link-list",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-03T10:30:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/personal-loans/",
+    "originPage": "Wells Fargo Personal Loans landing page (Helpful resources)",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "white",
+    "density": "compact",
+    "purpose": "navigation-grid",
+    "imagePattern": "none"
+  },
+  "contentPattern": {
+    "structure": "column heading + bulleted link list, repeated per column",
+    "buttonCount": 0,
+    "imageCount": 0,
+    "columns": 3
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "3-up grouped link directories",
+      "Helpful resources / Quick links / Tools sections",
+      "categorized link lists with column headings"
+    ],
+    "notSuitableFor": [
+      "card grids with images (use cards-image)",
+      "promo cards with descriptive text (use cards-icons or cards-text)",
+      "single-column navigation (use default content list)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/personal-loans/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-03T10:30:00.000Z"
+  }
+}

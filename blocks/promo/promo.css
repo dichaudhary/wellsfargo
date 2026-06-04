@@ -1,0 +1,164 @@
+/*
+ * Promo block — Wells Fargo "large promo full" pattern.
+ *
+ * Source: https://www.wellsfargo.com/personal-loans/
+ *  - Mobile: image on top, content stacked below, centered text and button.
+ *  - Desktop (>= 900px): full-bleed image with content card overlaid on left.
+ *
+ * The block is intended to appear inside a `section.grey` (light grey
+ * background) — the block itself is transparent and lets the section
+ * tint show through the empty space around the image illustration.
+ */
+
+/* Break out of the section's max-width so the promo runs edge-to-edge */
+.promo-wrapper {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.promo {
+  background-color: transparent;
+  color: var(--text-color);
+}
+
+/* Row container — relative anchor for the absolute content overlay on desktop */
+.promo > div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+}
+
+/* Image cell — full bleed */
+.promo .promo-media {
+  width: 100%;
+  line-height: 0;
+}
+
+.promo .promo-media picture,
+.promo .promo-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Content cell — centered stacked layout on mobile */
+.promo .promo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px 16px 40px;
+}
+
+.promo .promo-content h2 {
+  font-family: var(--light-font-family);
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 34px;
+  color: var(--heading-color);
+  margin: 0 0 25px;
+}
+
+.promo .promo-content p {
+  font-family: var(--body-font-family);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 25px;
+  color: var(--heading-color);
+  margin: 0;
+}
+
+/* Footnote markers (small superscript links) inside the heading.
+   The migrated content keeps the verbose accessibility label as the link
+   text, so we render the heading-level superscript as a small inline pill
+   to stay close to the source's "1,2" visual treatment. */
+.promo .promo-content h2 sup {
+  font-size: 12px;
+  font-weight: 400;
+  vertical-align: super;
+  line-height: 1;
+}
+
+.promo .promo-content h2 sup a:any-link {
+  color: var(--link-color);
+  font-family: var(--body-font-family);
+  font-weight: 400;
+  font-size: inherit;
+  text-decoration: underline;
+  border: none;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  display: inline;
+}
+
+/* Wells Fargo secondary CTA — outlined button, white fill, dark text/border.
+   Override the global purple secondary button styling for this block. */
+.promo .promo-content p.button-container {
+  margin: 32px 0 0;
+}
+
+main .promo .promo-content a.button:any-link {
+  background-color: var(--bg-white);
+  color: var(--text-color);
+  border: 1px solid var(--text-color);
+  border-radius: 24px;
+  padding: 9px 44px;
+  font-family: var(--heading-font-family);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.29;
+  text-decoration: none;
+  white-space: normal;
+  display: inline-block;
+}
+
+main .promo .promo-content a.button:any-link:hover,
+main .promo .promo-content a.button:any-link:focus-visible {
+  background-color: var(--text-color);
+  color: var(--bg-white);
+  border-color: var(--text-color);
+  text-decoration: none;
+}
+
+/* Desktop: full-bleed image with content overlaid on the left side. */
+@media (width >= 900px) {
+  .promo > div {
+    /* image is the canvas; content is positioned absolutely over it */
+    display: block;
+  }
+
+  .promo .promo-media {
+    width: 100%;
+  }
+
+  .promo .promo-content {
+    position: absolute;
+    top: 78px;
+    left: 88px;
+    width: 444px;
+    max-width: 40%;
+    padding: 0;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .promo .promo-content h2 {
+    font-size: 42px;
+    line-height: 1.33;
+    margin: 0;
+  }
+
+  .promo .promo-content p {
+    font-size: 24px;
+    line-height: 1.25;
+    margin: 21px 0 40px;
+  }
+
+  .promo .promo-content p.button-container {
+    margin: 0;
+  }
+}

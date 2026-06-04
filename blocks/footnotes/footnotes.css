@@ -1,0 +1,131 @@
+/*
+ * Footnotes block — design extracted from
+ * https://www.wellsfargo.com/mortgage/  (.ps-footnote)
+ *
+ * Source values:
+ *   font-size: 13px; line-height: 18px; color: rgb(20, 20, 20)
+ *   numbered footnote: display: grid; grid-template-columns: 15px 1fr;
+ *                      column-gap: 8px; margin: 0 0 24px;
+ *   container margin-top: 24px
+ *   Equal Housing Lender row: margin: 24px 20px;
+ *   Equal Housing icon: 25 x 24 (sprite, position -11px -129px)
+ */
+
+main .footnotes {
+  margin: 24px 0 0;
+  font-family: var(--body-font-family);
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--heading-color);
+}
+
+/* Numbered list — render as a 2-column grid on each row so wrapped text
+   keeps a hanging indent under the first line of content. */
+main .footnotes .footnotes-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: footnotes;
+}
+
+main .footnotes .footnotes-list > li {
+  display: grid;
+  grid-template-columns: 15px 1fr;
+  column-gap: 8px;
+  margin: 0 0 24px;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--heading-color);
+  counter-increment: footnotes;
+}
+
+/* Hide the native numbering — render the number ourselves in column 1
+   so the text in column 2 wraps with a clean hanging indent. */
+main .footnotes .footnotes-list > li::marker {
+  content: '';
+}
+
+main .footnotes .footnotes-list > li::before {
+  content: counter(footnotes) '.';
+  display: block;
+  width: 15px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--heading-color);
+}
+
+/* The single <p> inside each <li> is column 2 (the explanatory text). */
+main .footnotes .footnotes-list > li > * {
+  grid-column: 2;
+  margin: 0;
+}
+
+/* Disclosure paragraphs (Equal Housing Lender, division statement, tracking ID).
+   On the source these inherit the same small body type. */
+main .footnotes .footnotes-disclosure {
+  margin: 16px 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--heading-color);
+}
+
+/* The Equal Housing Lender row gets a small left indent on the source
+   (margin: 24px 20px) and shows a tiny icon next to the label.
+   EDS wraps the bare <img> in a <p>, so we place the icon and the label
+   side by side using a flex layout on the row itself. */
+main .footnotes .footnotes-housing {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0 24px 20px;
+}
+
+main .footnotes .footnotes-disclosure p,
+main .footnotes .footnotes-housing p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--heading-color);
+}
+
+main .footnotes .footnotes-list > li p {
+  margin: 0 0 0.5em;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--heading-color);
+}
+
+main .footnotes .footnotes-list > li p:last-child {
+  margin-bottom: 0;
+}
+
+/* Highlight a deep-linked footnote. */
+main .footnotes .footnotes-list > li:target {
+  background-color: #fff7d6;
+}
+
+/* The Wells Fargo sprite contains many icons — clip the picture to the
+   Equal Housing Lender icon's footprint (25x24) using a fixed box and
+   negative offset on the inner <img>. */
+main .footnotes .footnotes-housing picture {
+  display: inline-block;
+  width: 25px;
+  height: 24px;
+  overflow: hidden;
+  vertical-align: middle;
+  flex: 0 0 auto;
+}
+
+main .footnotes .footnotes-housing picture img {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: auto;
+  margin: -129px 0 0 -11px;
+}
+
+@media (width >= 900px) {
+  main .footnotes {
+    margin-top: 24px;
+  }
+}
