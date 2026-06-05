@@ -1,32 +1,35 @@
 /*
- * cards-contact — 4-up grid of contact cards (Wells Fargo "Talk to a mortgage
- * consultant" pattern). Each card has a heading plus either a phone number with
- * hours of operation, or descriptive text with a CTA button. Content is
- * left-aligned inside each card; cards have a soft cream background, rounded
- * corners (10px), and a subtle drop shadow.
+ * cards-contact — 3-up grid of contact cards (Wells Fargo "Talk to a mortgage
+ * consultant" / "How can we help?" pattern). Each card has a heading plus
+ * either a phone number with hours of operation, or descriptive text with a
+ * CTA button. Content is left-aligned; cards have a soft cream background,
+ * rounded corners (10px), and a subtle drop shadow. Cards stretch to equal
+ * height and CTA buttons align to the card bottom.
  *
- * Values extracted from the source page computed styles:
- *   card bg:     rgb(249, 247, 246)
+ * Values extracted from the source page (card-theme4 / three-card variant of
+ * ps-global.css):
+ *   card bg:       #f9f7f6
  *   border-radius: 10px
- *   box-shadow:  rgba(0, 0, 0, 0.3) 0 1px 5px 0
- *   inner padding: 17px 16px 0   (last <p> keeps its 17px bottom margin)
- *   gap between cards: 32px
- *   h3:  24px / 1.42 / 600  (heading-color)
- *   p:   18px / 1.22 / 400  (heading-color)
- *   cta: outlined pill, 1px solid var(--text-color), 24px radius, 9px 16px
+ *   box-shadow:    0 1px 5px 0 rgba(0, 0, 0, 0.3)
+ *   inner padding: 17px 16px 0
+ *   desktop:       3-up, width 33.33%, 32px gap, row centered
+ *   h3 (.title2-SemiBold):    24px / 1.29 / 600  (#141414)
+ *   p  (.subheadline-regular):18px / 1.28 / 400  (#141414)
+ *   cta (.ps-btn-secondary):  outlined pill, 1px solid #3b3331, 24px radius,
+ *                             9px 16px, min-width 176px, hover bg #141414
  */
 
-/* List wrapper */
+/* List wrapper — mobile: single column stack */
 .cards-contact > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 32px;
 }
 
-/* Card */
+/* Card — stretches to equal height so CTA buttons align across the row */
 .cards-contact > ul > li {
   display: flex;
   flex-direction: column;
@@ -36,10 +39,11 @@
   text-align: left;
 }
 
-/* Card body — inner padding wrapper. Bottom is 0 because the last <p> keeps
- * its 17px bottom margin (matching the source spacing rhythm). */
+/* Card body — inner padding wrapper. flex:1 lets the body fill the card so the
+ * trailing CTA paragraph can be pushed to the bottom (margin-top:auto). */
 .cards-contact .cards-contact-card-body {
   display: flex;
+  flex: 1;
   flex-direction: column;
   padding: 17px 16px 0;
   text-align: left;
@@ -51,7 +55,7 @@
   font-family: var(--heading-font-family);
   font-size: 24px;
   font-weight: 600;
-  line-height: 1.42;
+  line-height: 1.29;
   color: var(--heading-color);
   text-align: left;
 }
@@ -62,9 +66,17 @@
   font-family: var(--body-font-family);
   font-size: 18px;
   font-weight: 400;
-  line-height: 1.22;
+  line-height: 1.28;
   color: var(--heading-color);
   text-align: left;
+}
+
+/* CTA paragraph in a card flagged with .cards-contact-has-cta is pushed to the
+ * card bottom so buttons line up across the equal-height row (source uses
+ * margin-top:auto on the trailing <p>). */
+.cards-contact-has-cta .cards-contact-card-body > p:last-child {
+  margin-top: auto;
+  margin-bottom: 20px;
 }
 
 /* Plain links inside text — body color, no underline by default */
@@ -84,7 +96,9 @@
  * `main a.button:any-link`. */
 main .cards-contact .cards-contact-card-body a.cards-contact-cta:any-link {
   display: inline-block;
+  box-sizing: border-box;
   align-self: flex-start;
+  min-width: 176px;
   margin: 0;
   padding: 9px 16px;
   background-color: #fff;
@@ -102,23 +116,25 @@ main .cards-contact .cards-contact-card-body a.cards-contact-cta:any-link {
 
 main .cards-contact .cards-contact-card-body a.cards-contact-cta:hover,
 main .cards-contact .cards-contact-card-body a.cards-contact-cta:focus-visible {
-  background-color: var(--text-color);
+  background-color: var(--heading-color);
   color: var(--background-color);
   text-decoration: none;
 }
 
-/* Tablet — 2 columns */
+/* Tablet — 2 columns (source switches to 2-up below its 1080px desktop bp) */
 @media (width >= 600px) {
   .cards-contact > ul {
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 32px;
   }
 }
 
-/* Desktop — 4 columns side by side, matches source 1280px layout (32px gap) */
+/* Desktop — 3 columns side by side, centered, matches source three-card
+ * layout (33.33% width, 32px gap) */
 @media (width >= 900px) {
   .cards-contact > ul {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 32px;
+    justify-content: center;
   }
 }

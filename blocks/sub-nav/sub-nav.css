@@ -1,42 +1,55 @@
-.sub-nav nav {
-  border-bottom: 1px solid #d8d8d8;
+/*
+ * sub-nav — horizontal tab-style section navigation.
+ * Modeled on Wells Fargo .ir-navigation.nav-align-center:
+ * a centered, white rounded card with a soft shadow that floats over the
+ * marquee image above it. Tabs are spaced with a gap; the current tab is
+ * marked with a 2px dark-purple underline.
+ */
+
+.sub-nav {
+  background-color: var(--bg-white);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px 0 rgb(0 0 0 / 24%);
+  padding: 24px 40px;
 }
 
 .sub-nav nav ul {
-  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 24px 40px;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0;
+  list-style: none;
 }
 
 .sub-nav .sub-nav-item {
   margin: 0;
+  padding: 0;
 }
 
 .sub-nav .sub-nav-item a {
-  display: block;
-  padding: 12px 20px;
-  color: #4d4d4d;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.2;
   text-decoration: none;
-  font-weight: 600;
-  border-bottom: 3px solid transparent;
-  white-space: nowrap;
+  border-bottom: 2px solid transparent;
 }
 
 .sub-nav .sub-nav-item-active a {
-  color: #d71e28;
-  border-bottom-color: #d71e28;
+  color: var(--heading-color);
+  font-family: var(--heading-font-family);
+  font-weight: 600;
+  border-bottom-color: #322173;
+  padding-bottom: 6px;
 }
 
-.sub-nav .sub-nav-item a:hover {
-  color: #d71e28;
-  border-bottom-color: #d8d8d8;
-}
-
-@media (width >= 600px) {
-  .sub-nav nav ul {
-    justify-content: center;
-  }
+.sub-nav .sub-nav-item a:hover,
+.sub-nav .sub-nav-item a:focus {
+  text-decoration: underline;
 }

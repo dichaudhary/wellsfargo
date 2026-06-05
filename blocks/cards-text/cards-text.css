@@ -1,6 +1,8 @@
 /* cards-text block
- * 4-up grid of text-only cards (h3 + description + "learn more" link).
- * Source: https://www.wellsfargo.com/mortgage/ — "Grow your knowledge with our mortgage tools"
+ * Grid of text-only cards (h3 + description + "Learn more"/"Read the article" link).
+ * No images/icons. Used for loan-type cards (loan-programs), step cards
+ * (buying-a-house) and article cards (learn pages).
+ * Source: https://www.wellsfargo.com/mortgage/loan-programs/ (.card-container.two-card)
  */
 
 /* Grid of cards */
@@ -10,75 +12,65 @@
   padding: 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 32px;
 }
 
-/* Each card */
+/* Each card -- white box, rounded corners, soft drop shadow (no border) */
 .cards-text > ul > li {
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  background-image: linear-gradient(135deg, #fff 0%, #fdf6ed 100%);
   border-radius: 10px;
-  box-shadow: 0 1px 4px rgb(0 0 0 / 25%);
-  padding: 32px 24px 24px;
-  min-height: 220px;
+  box-shadow: 0 1px 5px 0 rgb(0 0 0 / 30%);
+  padding: 17px 16px 0;
 }
 
-/* Card body — flex column, pushes the link to the bottom of the card */
+/* Card body -- flex column */
 .cards-text .cards-text-card-body {
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 0;
 }
 
 /* Card heading */
 .cards-text .cards-text-card-body h3 {
-  margin: 0 0 8px;
-  font-family: var(--light-font-family);
+  margin: 0 0 17px;
+  font-family: var(--heading-font-family);
   font-size: 24px;
-  font-weight: 300;
-  line-height: 1.31;
+  font-weight: 600;
+  line-height: 1.42;
   color: var(--heading-color);
 }
 
 /* Card description */
 .cards-text .cards-text-card-body p {
-  margin: 0;
+  margin: 0 0 40px;
   font-family: var(--body-font-family);
-  font-size: 15px;
-  line-height: 1.3;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.28;
   color: var(--heading-color);
 }
 
-/* Link container -- pushes link to bottom of card */
+/* Link container -- pushes link to the bottom of the card */
 .cards-text .cards-text-card-body p:last-child {
-  margin-top: auto;
-  padding-top: 16px;
+  margin: auto 0 20px;
 }
 
-/* Card link styling */
+/* Card link styling -- weight 600, brand purple, no underline.
+ * The "> " chevron is authored text, so no pseudo-element is needed.
+ */
 .cards-text .cards-text-card-body a:any-link {
   color: var(--link-color);
   font-family: var(--body-font-family);
   font-size: 17px;
-  font-weight: 400;
+  font-weight: 600;
   text-decoration: none;
 }
 
 .cards-text .cards-text-card-body a:hover {
   color: var(--link-hover-color);
   text-decoration: underline;
-}
-
-/* Chevron after the link text */
-.cards-text .cards-text-card-body p:last-child a::after {
-  content: "\203A"; /* ›  Unicode single right-pointing angle quotation */
-  display: inline-block;
-  margin-left: 6px;
-  font-weight: 600;
-  transform: translateY(-1px);
 }
 
 /* Override EDS button auto-decoration -- the trailing <p><a> in each card
@@ -90,7 +82,7 @@ main .cards-text a.button:any-link {
   border-radius: 0;
   padding: 0;
   font-size: 17px;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--link-color);
   white-space: normal;
   display: inline;
@@ -101,22 +93,9 @@ main .cards-text .button-container {
   margin: 0;
 }
 
-/* Tablet -- 2 columns */
+/* Tablet and up -- 2 columns (matches loan-type card grid) */
 @media (width >= 600px) {
   .cards-text > ul {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-}
-
-/* Desktop -- 4 columns */
-@media (width >= 900px) {
-  .cards-text > ul {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-
-  .cards-text > ul > li {
-    min-height: 271px;
   }
 }

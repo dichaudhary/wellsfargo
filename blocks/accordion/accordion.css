@@ -12,6 +12,10 @@
 .accordion {
   font-family: var(--body-font-family);
   color: var(--text-color);
+
+  /* The FAQ section is authored with style "centered"; the accordion rows
+   * themselves must remain left-aligned next to the +/- toggle. */
+  text-align: left;
 }
 
 /* Each item is one row in the accordion, providing the border-top divider */
@@ -33,8 +37,11 @@
   position: relative;
 }
 
-/* Summary = the clickable question header */
+/* Summary = the clickable question header.
+ * display:block removes the native list-item marker (Firefox/Safari render
+ * <summary> as display:list-item which adds a disclosure triangle/bullet). */
 .accordion summary {
+  display: block;
   list-style: none;
   cursor: pointer;
   position: relative;
@@ -49,6 +56,26 @@
 
 .accordion summary::-webkit-details-marker {
   display: none;
+}
+
+.accordion summary::marker {
+  content: "";
+}
+
+/* The question text is authored as a <p><a> anchor link. EDS renders the
+ * <a> with the global purple link color — but the source FAQ question is a
+ * dark, non-underlined heading. Force the question to read as a heading and
+ * inherit the pointer so the whole row is clickable. */
+.accordion summary a:any-link {
+  color: var(--heading-color);
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.accordion summary a:hover {
+  color: var(--heading-color);
+  text-decoration: none;
 }
 
 /* +/- icon drawn with CSS — horizontal bar */

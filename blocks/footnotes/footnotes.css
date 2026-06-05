@@ -61,23 +61,28 @@ main .footnotes .footnotes-list > li > * {
 }
 
 /* Disclosure paragraphs (Equal Housing Lender, division statement, tracking ID).
-   On the source these inherit the same small body type. */
+   On the source each disclosure is its own `.ps-footnote` block:
+     .ps-footnote        margin: 24px 0 0   (vertical separation)
+     .ps-footnote-text   margin: 0 20px     (20px horizontal indent)
+   Here they all live in one block, so reproduce both on the row itself:
+   24px top gap + 20px left/right indent, same small 13px/18px body type. */
 main .footnotes .footnotes-disclosure {
-  margin: 16px 0;
+  margin: 24px 20px 0;
   font-size: 13px;
   line-height: 18px;
   color: var(--heading-color);
 }
 
-/* The Equal Housing Lender row gets a small left indent on the source
-   (margin: 24px 20px) and shows a tiny icon next to the label.
-   EDS wraps the bare <img> in a <p>, so we place the icon and the label
-   side by side using a flex layout on the row itself. */
+/* The Equal Housing Lender notice (.ps-footnote-footer on the source):
+   bold (font-weight 700), margin: 24px 20px, with a small icon next to the
+   label. EDS wraps the bare <img> in a <p>, so we place the icon and the
+   label side by side using a flex layout on the row itself. */
 main .footnotes .footnotes-housing {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin: 24px 0 24px 20px;
+  margin: 24px 20px;
+  font-weight: 700;
 }
 
 main .footnotes .footnotes-disclosure p,

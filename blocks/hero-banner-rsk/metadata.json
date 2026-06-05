@@ -1,0 +1,47 @@
+{
+  "variantName": "hero-banner-rsk",
+  "baseBlock": "hero-banner",
+  "version": "1.0.0",
+  "created": "2026-06-05T10:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/mortgage/buying-a-house/first-time-home-buyer/",
+    "originPage": "Wells Fargo mortgage / LOB rsk pages",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "white",
+    "density": "spacious",
+    "purpose": "page-hero",
+    "imagePattern": "full-width-top"
+  },
+  "contentPattern": {
+    "structure": "full-width banner image stacked above centered heading + copy + CTA",
+    "buttonCount": 1,
+    "imageCount": 1,
+    "columns": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "rsk marquee heroes (.rsk-marquee-container) where the banner image sits above centered content",
+      "mortgage / about / investing-wealth page-top heroes with image-on-top + centered text"
+    ],
+    "notSuitableFor": [
+      "overlay marquee heroes where text sits ON TOP of a full-bleed image (use hero-banner)",
+      "side-by-side image+text feature cards (use columns)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/about/index",
+      "/investing-wealth/index",
+      "/mortgage/buying-a-house/index",
+      "/mortgage/buying-a-house/first-time-home-buyer/index",
+      "/mortgage/buying-a-house/specialized-financing/index",
+      "/mortgage/learn/index",
+      "/mortgage/learn/mortgage-process/index",
+      "/mortgage/loan-programs/index"
+    ],
+    "reuseCount": 8,
+    "lastUsed": "2026-06-05T10:00:00.000Z"
+  }
+}

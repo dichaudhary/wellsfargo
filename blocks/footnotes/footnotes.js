@@ -44,8 +44,12 @@ export default function decorate(block) {
       cells.forEach((cell) => {
         while (cell.firstChild) div.append(cell.firstChild);
       });
-      // Tag the Equal Housing Lender row so it can be styled (icon + label).
-      if (div.querySelector('picture, img')) {
+      // Tag the Equal Housing Lender notice so it can be styled (bold label,
+      // optional icon). On the source this is `.ps-footnote-footer` and is
+      // rendered bold. Match on the icon (picture/img) OR the label text,
+      // since the icon may arrive as a glyph rather than an image.
+      if (div.querySelector('picture, img')
+        || /equal housing lender/i.test(div.textContent)) {
         div.classList.add('footnotes-housing');
       }
       trailing.push(div);

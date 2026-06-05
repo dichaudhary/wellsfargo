@@ -1,26 +1,35 @@
 /*
- * hero-banner block
- * Source: Wells Fargo .rsk-marquee-container (https://www.wellsfargo.com/mortgage/)
+ * hero-banner block — Wells Fargo homepage "marquee"
+ * Source: .marquee-container / .marquee-wrap on https://www.wellsfargo.com/
  *
- * Layout: full-width banner image stacked above an off-white "card" containing the
- * heading, with the card overlapping the bottom of the image via negative margin-top.
+ * Source layout
+ *   Mobile  (<900px): full-width banner image, then the text/CTA stacked below
+ *                     it on a transparent background, centered.
+ *   Desktop (>=900px): full-bleed banner image; the text/CTA are overlaid on
+ *                      the left third of the image, left-aligned, transparent
+ *                      background. The image artwork keeps its right side clear
+ *                      for the headline.
  *
  * EDS-decorated DOM:
  *   .hero-banner.block
- *     > div                           (single row)
- *       > div.hero-banner-image       (picture)
- *       > div.hero-banner-content     (h2)
+ *     > div                          (single row)
+ *       > div.hero-banner-image      (picture > img)
+ *       > div.hero-banner-content    (h2, p, p > a)
  */
+
+/* Let the banner run edge-to-edge inside the section's padded container */
+.hero-banner-wrapper {
+  margin-inline: -24px;
+}
 
 .hero-banner {
   display: block;
   width: 100%;
   margin: 0;
   padding: 0;
-  text-align: center;
 }
 
-/* The single row: stack image then content vertically */
+/* The single row: stack image then content vertically (mobile) */
 .hero-banner > div {
   display: flex;
   flex-direction: column;
@@ -29,7 +38,7 @@
   padding: 0;
 }
 
-/* Image cell -- sits at top, full container width */
+/* Image cell — full-bleed banner */
 .hero-banner .hero-banner-image {
   width: 100%;
   margin: 0;
@@ -46,56 +55,115 @@
   display: block;
   width: 100%;
   height: auto;
-  object-fit: cover;
-  object-position: 50% 50%;
 }
 
-/* Content cell -- the off-white card. Overlaps the image with a negative margin. */
+/* Content cell — transparent, centered text below the image (mobile) */
 .hero-banner .hero-banner-content {
-  position: relative;
-  z-index: 1;
   box-sizing: border-box;
-  margin: -21px 0 0;
-  padding: 24px;
-  background-color: rgb(249, 248, 246);
-  border-radius: 10px;
-  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 16px;
+  background: none;
   color: var(--heading-color);
+  text-align: center;
 }
 
 .hero-banner .hero-banner-content h1,
 .hero-banner .hero-banner-content h2,
 .hero-banner .hero-banner-content h3 {
-  margin: 0;
-  padding: 8px 0;
+  margin: 0 0 8px;
+  padding: 0;
   color: var(--heading-color);
   font-family: var(--light-font-family);
   font-weight: 400;
-  font-size: 28px;
-  line-height: 32px;
-  text-align: center;
+  font-size: 34px;
+  line-height: 44px;
 }
 
 .hero-banner .hero-banner-content p {
-  margin: 8px 0 0;
+  margin: 0;
+  color: var(--heading-color);
+  font-size: 17px;
+  line-height: 22px;
+}
+
+/* CTA — white pill button (.ps-btn-secondary on source). EDS leaves the
+   <p><a> un-decorated, so target the link directly. */
+.hero-banner .hero-banner-content p:last-child {
+  margin-top: 20px;
+}
+
+.hero-banner .hero-banner-content a {
+  display: inline-block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 9px 16px;
+  border: 1px solid rgb(59 51 49);
+  border-radius: 24px;
+  background-color: #fff;
+  color: rgb(59 51 49);
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
   text-align: center;
-  color: var(--text-color);
+  text-decoration: none;
+}
+
+.hero-banner .hero-banner-content a:hover,
+.hero-banner .hero-banner-content a:focus-visible {
+  background-color: rgb(59 51 49);
+  color: #fff;
+}
+
+/* Mobile: CTA fills the content width like the source */
+.hero-banner .hero-banner-content p:last-child a {
+  display: block;
+  width: 100%;
 }
 
 @media (width >= 900px) {
+  .hero-banner-wrapper {
+    margin-inline: -32px;
+  }
+
+  /* Overlay the content on the banner image */
+  .hero-banner > div {
+    position: relative;
+  }
+
   .hero-banner .hero-banner-content {
-    /* On desktop the card is narrower than the image and overlaps further */
-    width: 85%;
-    max-width: 1083px;
-    margin: -61px auto 0;
-    padding: 24px 56px;
+    position: absolute;
+    inset: 0 auto 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 35%;
+    max-width: 480px;
+    margin: 0;
+    padding: 0 0 0 7%;
+    text-align: left;
   }
 
   .hero-banner .hero-banner-content h1,
   .hero-banner .hero-banner-content h2,
   .hero-banner .hero-banner-content h3 {
-    font-size: 34px;
-    line-height: 1.35;
-    padding: 12px 0;
+    margin: 0 0 20px;
+    font-size: 48px;
+    line-height: 56px;
+  }
+
+  .hero-banner .hero-banner-content p {
+    font-size: 20px;
+    line-height: 32px;
+  }
+
+  /* Desktop: CTA shrinks to its content */
+  .hero-banner .hero-banner-content p:last-child {
+    margin-top: 20px;
+  }
+
+  .hero-banner .hero-banner-content p:last-child a {
+    display: inline-block;
+    width: auto;
   }
 }

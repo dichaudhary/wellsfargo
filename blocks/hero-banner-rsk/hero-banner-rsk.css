@@ -1,0 +1,123 @@
+/*
+ * hero-banner-rsk -- Wells Fargo "rsk" marquee variant.
+ * Full-width banner image with a centered cream content card pulled up to
+ * overlap the bottom of the image (heading + copy + red CTA pill). A gold
+ * accent bar sits above the heading. Distinct from hero-banner (overlaid text).
+ * Values extracted from .rsk-marquee-container on
+ * https://www.wellsfargo.com/mortgage/buying-a-house/first-time-home-buyer/
+ */
+
+.hero-banner-rsk {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* Banner image -- full width, on top */
+.hero-banner-rsk .hero-banner-rsk-image {
+  line-height: 0;
+}
+
+.hero-banner-rsk .hero-banner-rsk-image picture,
+.hero-banner-rsk .hero-banner-rsk-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 135 / 53;
+  object-fit: cover;
+}
+
+/* Content -- centered cream card that overlaps the image bottom */
+.hero-banner-rsk .hero-banner-rsk-content {
+  z-index: 1;
+  align-self: center;
+  width: 100%;
+  margin-top: -24px;
+  padding: 24px;
+  font-family: var(--body-font-family);
+  background-color: #f9f8f6;
+}
+
+/* Gold accent bar above the heading */
+.hero-banner-rsk .hero-banner-rsk-content h1::before,
+.hero-banner-rsk .hero-banner-rsk-content h2::before {
+  content: "";
+  display: block;
+  width: 96px;
+  height: 2px;
+  margin: 0 auto;
+  background-color: rgb(255 205 65);
+}
+
+.hero-banner-rsk .hero-banner-rsk-content h1,
+.hero-banner-rsk .hero-banner-rsk-content h2 {
+  margin: 0;
+  padding: 12px 0;
+  font-family: var(--light-font-family);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--heading-color);
+}
+
+.hero-banner-rsk .hero-banner-rsk-content p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.31;
+  color: var(--heading-color);
+}
+
+/* CTA -- solid Wells Fargo red pill. High specificity to beat the global
+   outline `main a.button:any-link` rule should EDS decorate the link. */
+.hero-banner-rsk .hero-banner-rsk-content p:has(> a:only-child) {
+  margin-top: 24px;
+}
+
+.hero-banner-rsk .hero-banner-rsk-content a:any-link,
+main .hero-banner-rsk .hero-banner-rsk-content a.button:any-link {
+  display: inline-block;
+  margin: 0;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 24px;
+  background: #d71e28;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.29;
+  text-decoration: none;
+}
+
+.hero-banner-rsk .hero-banner-rsk-content a:any-link:hover,
+.hero-banner-rsk .hero-banner-rsk-content a:any-link:focus-visible,
+main .hero-banner-rsk .hero-banner-rsk-content a.button:any-link:hover,
+main .hero-banner-rsk .hero-banner-rsk-content a.button:any-link:focus-visible {
+  background: #aa0028;
+  color: #fff;
+}
+
+@media (width >= 600px) {
+  .hero-banner-rsk .hero-banner-rsk-content {
+    width: 90%;
+    margin-top: -40px;
+    padding: 24px 40px;
+  }
+
+  .hero-banner-rsk .hero-banner-rsk-content h1,
+  .hero-banner-rsk .hero-banner-rsk-content h2 {
+    font-size: 32px;
+  }
+}
+
+@media (width >= 900px) {
+  .hero-banner-rsk .hero-banner-rsk-content {
+    width: 85%;
+    margin-top: -61px;
+    padding: 24px 56px;
+  }
+
+  .hero-banner-rsk .hero-banner-rsk-content h1,
+  .hero-banner-rsk .hero-banner-rsk-content h2 {
+    font-size: 34px;
+  }
+}
