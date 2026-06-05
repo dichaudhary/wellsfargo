@@ -5,6 +5,7 @@
  * accent bar sits above the heading. Distinct from hero-banner (overlaid text).
  * Values extracted from .rsk-marquee-container on
  * https://www.wellsfargo.com/mortgage/buying-a-house/first-time-home-buyer/
+ * (desktop @1440px and mobile @390px computed styles).
  */
 
 .hero-banner-rsk {
@@ -13,7 +14,8 @@
   text-align: center;
 }
 
-/* Banner image -- full width, on top */
+/* Banner image -- full width, on top. Source uses object-fit:fill with a
+   per-breakpoint aspect ratio (57/20 mobile, 135/53 desktop). */
 .hero-banner-rsk .hero-banner-rsk-image {
   line-height: 0;
 }
@@ -23,19 +25,27 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 135 / 53;
-  object-fit: cover;
+  aspect-ratio: 57 / 20;
+  object-fit: fill;
 }
 
-/* Content -- centered cream card that overlaps the image bottom */
+/* Content -- centered cream card that overlaps the image bottom. The source
+   nests an .rsk-marquee-inner-content element that carries the padding; here the
+   single content cell plays both roles, so box-sizing:border-box keeps the
+   percentage width (card outer box) inclusive of the padding. */
 .hero-banner-rsk .hero-banner-rsk-content {
   z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   align-self: center;
-  width: 100%;
-  margin-top: -24px;
+  width: 91.5%;
+  margin-top: -21px;
   padding: 24px;
   font-family: var(--body-font-family);
   background-color: #f9f8f6;
+  border-radius: 10px;
 }
 
 /* Gold accent bar above the heading */
@@ -52,36 +62,39 @@
 .hero-banner-rsk .hero-banner-rsk-content h1,
 .hero-banner-rsk .hero-banner-rsk-content h2 {
   margin: 0;
-  padding: 12px 0;
+  padding: 8px 0;
   font-family: var(--light-font-family);
   font-size: 28px;
   font-weight: 400;
-  line-height: 1.35;
-  color: var(--heading-color);
+  line-height: 1.14;
+  color: var(--text-color);
 }
 
 .hero-banner-rsk .hero-banner-rsk-content p {
   margin: 0;
-  font-size: 17px;
-  line-height: 1.31;
-  color: var(--heading-color);
+  font-size: 15px;
+  line-height: 1.28;
+  color: var(--text-color);
 }
 
-/* CTA -- solid Wells Fargo red pill. High specificity to beat the global
-   outline `main a.button:any-link` rule should EDS decorate the link. */
+/* CTA -- solid Wells Fargo red pill, rendered as a fixed-width centered block.
+   High specificity to beat the global outline `main a.button:any-link` rule
+   should EDS decorate the link. */
 .hero-banner-rsk .hero-banner-rsk-content p:has(> a:only-child) {
   margin-top: 24px;
 }
 
 .hero-banner-rsk .hero-banner-rsk-content a:any-link,
 main .hero-banner-rsk .hero-banner-rsk-content a.button:any-link {
-  display: inline-block;
-  margin: 0;
+  display: block;
+  width: 263px;
+  margin: 0 auto;
   padding: 9px 16px;
   border: 0;
   border-radius: 24px;
   background: #d71e28;
   color: #fff;
+  font-family: var(--heading-font-family);
   font-size: 17px;
   font-weight: 400;
   line-height: 1.29;
@@ -96,28 +109,49 @@ main .hero-banner-rsk .hero-banner-rsk-content a.button:any-link:focus-visible {
   color: #fff;
 }
 
+/* Tablet -- source keeps the mobile heading size, overlap and gold bar through
+   ~900px; only the inner side padding widens (24px 56px) and the paragraph
+   grows to 17px. */
 @media (width >= 600px) {
   .hero-banner-rsk .hero-banner-rsk-content {
-    width: 90%;
-    margin-top: -40px;
-    padding: 24px 40px;
+    width: 88%;
+    padding: 24px 56px;
   }
 
-  .hero-banner-rsk .hero-banner-rsk-content h1,
-  .hero-banner-rsk .hero-banner-rsk-content h2 {
-    font-size: 32px;
+  .hero-banner-rsk .hero-banner-rsk-content p {
+    font-size: 17px;
+    line-height: 1.29;
   }
 }
 
 @media (width >= 900px) {
+  .hero-banner-rsk .hero-banner-rsk-image picture,
+  .hero-banner-rsk .hero-banner-rsk-image img {
+    aspect-ratio: 135 / 53;
+  }
+
   .hero-banner-rsk .hero-banner-rsk-content {
-    width: 85%;
+    width: 80.85%;
     margin-top: -61px;
     padding: 24px 56px;
   }
 
   .hero-banner-rsk .hero-banner-rsk-content h1,
   .hero-banner-rsk .hero-banner-rsk-content h2 {
-    font-size: 34px;
+    padding: 12px 0;
+    font-size: 40px;
+    line-height: 1.15;
+    color: var(--heading-color);
+  }
+
+  .hero-banner-rsk .hero-banner-rsk-content p {
+    font-size: 22px;
+    line-height: 1.31;
+    color: var(--heading-color);
+  }
+
+  .hero-banner-rsk .hero-banner-rsk-content a:any-link,
+  main .hero-banner-rsk .hero-banner-rsk-content a.button:any-link {
+    width: 238px;
   }
 }
