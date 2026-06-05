@@ -1,33 +1,187 @@
+/*
+ * columns -- image-beside-text "horizontal card" layout.
+ * Source: Wells Fargo `.enhanced-txt-horizontal-card`
+ *   (/com/ "Celebrating customer successes",
+ *    /mortgage/buying-a-house/specialized-financing/ new construction + condo).
+ *
+ * Visual signature (extracted via getComputedStyle):
+ *   - Desktop: square image on the left (~1/3), content on the right (~2/3),
+ *     top-aligned, no gap between (content uses a 12-col grid: img 1/4, text 5/12).
+ *   - Image: square (aspect-ratio 1/1), object-fit cover, NO rounding (source = 0).
+ *   - Title h3: 24px, weight 600, color #141414, margin 0 0 16px.
+ *   - Body / list: 17px, weight 400, line-height ~1.3, color #141414.
+ *   - CTA "Read article / Get started": outline PILL button --
+ *     1px solid #3b3331, radius 24px, padding 9px 16px, weight 600, white bg.
+ *   - Inline body links (FHA/VA): plain brand-purple text links.
+ *   - Mobile: image stacks on top, content below.
+ *   - Two-column text variant (condo): two equal columns side by side >= 900px.
+ */
+
+/* ---- Base (mobile-first): stack everything vertically ---- */
 .columns > div {
   display: flex;
   flex-direction: column;
-}
-
-.columns img {
-  width: 100%;
+  gap: 0;
 }
 
 .columns > div > div {
   order: 1;
+  font-family: var(--body-font-family);
 }
 
+/* Image column is tagged by columns.js when a picture is the column's only child */
 .columns > div > .columns-img-col {
   order: 0;
 }
 
-.columns > div > .columns-img-col img {
+.columns img {
   display: block;
+  width: 100%;
 }
 
+/* Square cover image to match the source 740x740 crop */
+.columns > div > .columns-img-col img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* When the picture is authored inline within a text column (condo variant),
+   it still renders full-width on top of the copy. */
+.columns > div > div > p:first-child picture img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+/* ---- Content typography (matches the source horizontal-card) ---- */
+.columns > div > div h3 {
+  margin: 24px 0 16px;
+  font-family: var(--heading-font-family);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--heading-color);
+}
+
+.columns > div > div p {
+  margin: 0 0 16px;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--heading-color);
+}
+
+.columns > div > div ul {
+  margin: 0 0 16px;
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.columns > div > div li {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--heading-color);
+}
+
+/* Inline body links (e.g. FHA / VA loans) remain plain brand-purple text links */
+.columns > div > div li a:any-link {
+  color: var(--link-color);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.columns > div > div li a:any-link:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* ---- CTA "Read article / Get started": outline pill button ----
+   Source: 1px solid #3b3331, radius 24px, padding 9px 16px, weight 600.
+   In this content the CTA is a standalone paragraph containing only a link
+   (EDS does not always decorate it into a .button). Target both the plain
+   `p > a:only-child` and the decorated `a.button` so the pill always renders.
+   The `.button-container`/`a.button` selectors also override global button CSS. */
+.columns > div > div .button-container,
+.columns > div > div p:has(> a:only-child) {
+  margin: 24px 0 0;
+}
+
+.columns > div > div a.button:any-link,
+.columns > div > div p:has(> a:only-child) > a:any-link {
+  display: inline-block;
+  margin: 0;
+  border: 1px solid var(--text-color);
+  border-radius: 24px;
+  padding: 9px 16px;
+  background: var(--background-color);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-color);
+  text-decoration: none;
+  white-space: normal;
+}
+
+.columns > div > div a.button:any-link:hover,
+.columns > div > div a.button:any-link:focus-visible,
+.columns > div > div p:has(> a:only-child) > a:any-link:hover,
+.columns > div > div p:has(> a:only-child) > a:any-link:focus-visible {
+  background: var(--text-color);
+  border-color: var(--text-color);
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+/* Tighten spacing: last child of a content column shouldn't add trailing margin */
+.columns > div > div > *:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Desktop (>= 900px) ---- */
 @media (width >= 900px) {
-  .columns > div {
-    align-items: center;
-    flex-direction: unset;
+  /* Two-column image+text card: image ~1/3, content ~2/3, top-aligned.
+     The single-card (image + text) blocks decorate to .columns-2-cols. */
+  .columns.columns-2-cols > div {
+    flex-direction: row;
+    align-items: flex-start;
     gap: 24px;
   }
 
-  .columns > div > div {
+  /* Image column ~1/3 of the row width (source img : content ≈ 4 : 8 cols) */
+  .columns.columns-2-cols > div > .columns-img-col {
+    flex: 0 0 33%;
+    order: 0;
+    max-width: 33%;
+  }
+
+  /* Content column takes the remaining space */
+  .columns.columns-2-cols > div > div {
     flex: 1;
     order: unset;
+  }
+
+  /* First h3 in a content column has no top margin on desktop
+     (image provides the visual top edge). */
+  .columns.columns-2-cols > div > div:not(.columns-img-col) > h3:first-child {
+    margin-top: 0;
+  }
+
+  /* Two equal text columns side by side (condo variant: 2 cols, no img-col). */
+  .columns.columns-2-cols > div:not(:has(> .columns-img-col)) {
+    gap: 32px;
+  }
+
+  .columns.columns-2-cols > div:not(:has(> .columns-img-col)) > div {
+    flex: 1 1 0;
+    max-width: 50%;
+  }
+
+  /* Condo col with inline image: image on top, text below, top h3 keeps margin 0 */
+  .columns.columns-2-cols > div:not(:has(> .columns-img-col)) > div > h3:first-child {
+    margin-top: 0;
   }
 }

@@ -1,0 +1,43 @@
+{
+  "variantName": "columns",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-06-05T09:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/com/",
+    "originPage": "Wells Fargo Commercial Banking / Mortgage specialized-financing",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "white",
+    "density": "spacious",
+    "purpose": "side-by-side-content",
+    "imagePattern": "optional-left"
+  },
+  "contentPattern": {
+    "structure": "image + (title + body + cta) OR two side-by-side text columns",
+    "buttonCount": 1,
+    "imageCount": 1,
+    "columns": 2
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "single image-beside-text story/feature cards (.horizontal-card)",
+      "two side-by-side text columns with lists (e.g. condo financing comparison)",
+      "spotlight / customer-success stories with one large photo"
+    ],
+    "notSuitableFor": [
+      "3-up or 4-up card grids (use cards-image / cards-image-4up / cards-text)",
+      "icon promo rows (use cards-icons)",
+      "full-width marquee banners (use hero-banner)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/com/index",
+      "/mortgage/buying-a-house/specialized-financing/index"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-06-05T09:00:00.000Z"
+  }
+}

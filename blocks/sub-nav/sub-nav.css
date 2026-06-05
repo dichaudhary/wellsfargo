@@ -1,0 +1,42 @@
+.sub-nav nav {
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.sub-nav nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.sub-nav .sub-nav-item {
+  margin: 0;
+}
+
+.sub-nav .sub-nav-item a {
+  display: block;
+  padding: 12px 20px;
+  color: #4d4d4d;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+
+.sub-nav .sub-nav-item-active a {
+  color: #d71e28;
+  border-bottom-color: #d71e28;
+}
+
+.sub-nav .sub-nav-item a:hover {
+  color: #d71e28;
+  border-bottom-color: #d8d8d8;
+}
+
+@media (width >= 600px) {
+  .sub-nav nav ul {
+    justify-content: center;
+  }
+}

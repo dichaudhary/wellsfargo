@@ -32,8 +32,11 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/mortgage/index"],
-    "reuseCount": 1,
-    "lastUsed": "2026-06-03T10:30:00.000Z"
+    "pagesUsing": [
+      "/mortgage/index",
+      "/mortgage/buying-a-house/first-time-home-buyer/index"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-06-05T08:16:58.677Z"
   }
 }

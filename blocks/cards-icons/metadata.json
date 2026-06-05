@@ -33,8 +33,11 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/mortgage/index"],
-    "reuseCount": 2,
-    "lastUsed": "2026-06-03T09:35:00.000Z"
+    "pagesUsing": [
+      "/mortgage/index",
+      "/index"
+    ],
+    "reuseCount": 4,
+    "lastUsed": "2026-06-05T07:28:10.061Z"
   }
 }

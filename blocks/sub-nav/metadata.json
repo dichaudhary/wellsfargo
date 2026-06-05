@@ -1,0 +1,40 @@
+{
+  "variantName": "sub-nav",
+  "baseBlock": "sub-nav",
+  "version": "1.0.0",
+  "created": "2026-06-05T08:10:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/mortgage/learn/",
+    "originPage": "Mortgage learning and education center",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "section-navigation",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "horizontal row of sibling-page links (tab-style)",
+    "buttonCount": 0,
+    "imageCount": 0,
+    "columns": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "horizontal tab-style sub-navigation across sibling pages",
+      "section/overview navigation bars under the page H1",
+      "in-section page switchers (Overview / step pages)"
+    ],
+    "notSuitableFor": [
+      "3-up grouped link directories (use cards-link-list)",
+      "interactive tabbed content panels that swap content in-page (use tabs)",
+      "breadcrumb trails (page chrome - remove)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/mortgage/learn/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-05T08:10:00.000Z"
+  }
+}

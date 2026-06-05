@@ -1,0 +1,44 @@
+{
+  "variantName": "cards-image-4up",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-06-04T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/cib/",
+    "originPage": "Wells Fargo Corporate & Investment Banking landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "white",
+    "density": "spacious",
+    "purpose": "feature-highlight",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + heading + description + link",
+    "buttonCount": 1,
+    "imageCount": 1,
+    "columns": 4
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "4-up image card grids",
+      "insights / news / deal feature rows with photography",
+      "people / careers feature rows"
+    ],
+    "notSuitableFor": [
+      "3-up image card grids (use cards-image)",
+      "icon-only promo grids (use cards-icons)",
+      "text-only card grids (use cards-text)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/cib/index",
+      "/index",
+      "/mortgage/buying-a-house/first-time-home-buyer/index"
+    ],
+    "reuseCount": 3,
+    "lastUsed": "2026-06-05T08:16:58.677Z"
+  }
+}
