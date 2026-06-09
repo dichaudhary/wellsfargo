@@ -33,8 +33,11 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/mortgage/learn/index"],
-    "reuseCount": 1,
-    "lastUsed": "2026-06-05T08:10:00.000Z"
+    "pagesUsing": [
+      "/mortgage/learn/index",
+      "/biz/practice-finance-medical-dental-loans/index"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-06-08T09:36:26.656Z"
   }
 }

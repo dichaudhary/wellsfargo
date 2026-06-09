@@ -15,7 +15,7 @@
     "imagePattern": "none"
   },
   "contentPattern": {
-    "structure": "expandable Q&A items — question summary + collapsible answer body",
+    "structure": "expandable Q&A items \u2014 question summary + collapsible answer body",
     "buttonCount": 0,
     "imageCount": 0,
     "columns": 2
@@ -34,9 +34,11 @@
   "usage": {
     "pagesUsing": [
       "/mortgage/index",
-      "/mortgage/buying-a-house/first-time-home-buyer/index"
+      "/mortgage/buying-a-house/first-time-home-buyer/index",
+      "/biz/business-credit/index",
+      "/biz/signify-rewards/index"
     ],
-    "reuseCount": 2,
-    "lastUsed": "2026-06-05T08:16:58.677Z"
+    "reuseCount": 4,
+    "lastUsed": "2026-06-08T09:33:46.842669Z"
   }
 }

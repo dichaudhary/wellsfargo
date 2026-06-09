@@ -102,9 +102,9 @@ main .cards-contact .cards-contact-card-body a.cards-contact-cta:any-link {
   margin: 0;
   padding: 9px 16px;
   background-color: #fff;
-  border: 1px solid var(--text-color);
+  border: 1px solid #3b3331;
   border-radius: 24px;
-  color: var(--text-color);
+  color: #3b3331;
   font-family: var(--heading-font-family);
   font-size: 17px;
   font-weight: 600;

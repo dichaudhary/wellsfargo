@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.wellsfargo.com/biz/practice-finance-medical-dental-loans/",
+  "path": "biz/practice-finance-medical-dental-loans",
+  "timestamp": "2026-06-08T13:19:12.228Z",
+  "title": "Practice Finance: Medical, Dental, Vet & Optometry Practice Loans | Wells Fargo",
+  "template": "biz-product",
+  "blocks": [
+    "hero-banner",
+    "cards-icons",
+    "cards-icons",
+    "columns",
+    "promo",
+    "footnotes"
+  ]
+}

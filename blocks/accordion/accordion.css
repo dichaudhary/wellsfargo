@@ -47,7 +47,10 @@
   position: relative;
   padding: 16px 8px 16px 32px; /* room on the left for the +/- icon */
   margin: 0;
-  font-family: var(--heading-font-family);
+
+  /* Source question text uses Wells Fargo Sans Regular (not SemiBold) at
+   * weight 400, color #141414 — see .show-hide-title-text on wellsfargo.com */
+  font-family: var(--body-font-family);
   font-size: 18px;
   font-weight: 400;
   line-height: 1.3;

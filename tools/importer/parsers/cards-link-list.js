@@ -17,7 +17,13 @@
  * content, so this parser deliberately omits it.
  */
 export default function parse(element, { document }) {
-  const columns = element.querySelectorAll('.three-card-content, [class*="three-card-content"]');
+  // Personal-loans markup uses `.three-card-content` columns; the /biz/ pages
+  // wrap each column as `.enhanced-txt-cm` containing a `.link-list-desc`.
+  let columns = element.querySelectorAll('.three-card-content, [class*="three-card-content"]');
+  if (!columns.length) {
+    columns = Array.from(element.querySelectorAll('.enhanced-txt-cm'))
+      .filter((col) => col.querySelector('.link-list-desc'));
+  }
   const cells = [];
 
   columns.forEach((col) => {

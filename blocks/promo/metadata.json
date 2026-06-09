@@ -35,9 +35,10 @@
     "pagesUsing": [
       "/mortgage/index",
       "/index",
-      "/mortgage/buying-a-house/first-time-home-buyer/index"
+      "/mortgage/buying-a-house/first-time-home-buyer/index",
+      "/biz/practice-finance-medical-dental-loans/index"
     ],
-    "reuseCount": 4,
-    "lastUsed": "2026-06-05T08:16:58.677Z"
+    "reuseCount": 5,
+    "lastUsed": "2026-06-08T09:36:26.656Z"
   }
 }

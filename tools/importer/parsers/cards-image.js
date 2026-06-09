@@ -47,8 +47,18 @@ export default function parse(element, { document }) {
     // Card image: first <img> in the card. Fallback selectors handle future variation.
     const image = card.querySelector('img');
 
-    // Card heading: <h3> inside .title2-SemiBold; fallback to any heading inside the card.
-    const heading = card.querySelector('.title2-SemiBold h3, h3, h2, h4');
+    // Card heading: <h3> inside .title2-SemiBold; fallback to any heading inside
+    // the card. Some variants put the title as plain text directly in
+    // .title2-SemiBold (no inner heading element) — synthesize an <h3> then.
+    let heading = card.querySelector('.title2-SemiBold h3, h3, h2, h4');
+    if (!heading) {
+      const titleDiv = card.querySelector('.title2-SemiBold');
+      const titleText = titleDiv && titleDiv.textContent.replace(/\s+/g, ' ').trim();
+      if (titleText) {
+        heading = document.createElement('h3');
+        heading.textContent = titleText;
+      }
+    }
 
     // Description: .subheadline-regular div carries description text plus inline footnote refs.
     const description = card.querySelector('.subheadline-regular, .enhanced-txt-body > div:not(.title2-SemiBold):not(.ps-btn-text)');

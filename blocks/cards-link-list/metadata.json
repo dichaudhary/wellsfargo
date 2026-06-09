@@ -33,8 +33,12 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/personal-loans/index"],
-    "reuseCount": 1,
-    "lastUsed": "2026-06-03T10:30:00.000Z"
+    "pagesUsing": [
+      "/personal-loans/index",
+      "/biz/business-credit/index",
+      "/biz/sba/index"
+    ],
+    "reuseCount": 3,
+    "lastUsed": "2026-06-08T09:35:00.000000Z"
   }
 }

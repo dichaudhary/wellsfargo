@@ -35,10 +35,10 @@ var CustomImportScript = (() => {
   };
   var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-  // tools/importer/import-product-landing-page.js
-  var import_product_landing_page_exports = {};
-  __export(import_product_landing_page_exports, {
-    default: () => import_product_landing_page_default
+  // tools/importer/import-biz-product.js
+  var import_biz_product_exports = {};
+  __export(import_biz_product_exports, {
+    default: () => import_biz_product_default
   });
 
   // tools/importer/parsers/accordion.js
@@ -266,7 +266,7 @@ var CustomImportScript = (() => {
     const cells = [];
     items.forEach((item) => {
       const icon = item.querySelector(".ps-marketing-icon img, .ps-marketing-icon-container img");
-      const heading2 = item.querySelector(".ps-marketing-text h3, h3");
+      const heading2 = item.querySelector(".ps-marketing-text h3, .ps-marketing-text h2, .ps-marketing-text h4, h3, h2, h4");
       const description = item.querySelector(".ps-marketing-text p.ps-marketing-text-content, .ps-marketing-text p:not(.learn-more):not(.learn-more-mobile)");
       let ctaLink = item.querySelector(".ps-marketing-promo-link p.learn-more a, .ps-marketing-promo-link a");
       if (!ctaLink) {
@@ -320,7 +320,15 @@ var CustomImportScript = (() => {
     const cells = [];
     uniqueCards.forEach((card) => {
       const image = card.querySelector("img");
-      const heading2 = card.querySelector(".title2-SemiBold h3, h3, h2, h4");
+      let heading2 = card.querySelector(".title2-SemiBold h3, h3, h2, h4");
+      if (!heading2) {
+        const titleDiv = card.querySelector(".title2-SemiBold");
+        const titleText = titleDiv && titleDiv.textContent.replace(/\s+/g, " ").trim();
+        if (titleText) {
+          heading2 = document.createElement("h3");
+          heading2.textContent = titleText;
+        }
+      }
       const description = card.querySelector(".subheadline-regular, .enhanced-txt-body > div:not(.title2-SemiBold):not(.ps-btn-text)");
       const cta = card.querySelector("a.ps-btn-text, .enhanced-txt-body p a, p a");
       if (!image && !heading2 && !description && !cta) return;
@@ -351,7 +359,10 @@ var CustomImportScript = (() => {
 
   // tools/importer/parsers/cards-link-list.js
   function parse6(element, { document }) {
-    const columns = element.querySelectorAll('.three-card-content, [class*="three-card-content"]');
+    let columns = element.querySelectorAll('.three-card-content, [class*="three-card-content"]');
+    if (!columns.length) {
+      columns = Array.from(element.querySelectorAll(".enhanced-txt-cm")).filter((col) => col.querySelector(".link-list-desc"));
+    }
     const cells = [];
     columns.forEach((col) => {
       const titleNode = col.querySelector('.title2-SemiBold, [class*="title"]');
@@ -384,95 +395,50 @@ var CustomImportScript = (() => {
     element.replaceWith(...replacements);
   }
 
-  // tools/importer/parsers/cards-testimonials.js
+  // tools/importer/parsers/columns.js
   function parse7(element, { document }) {
-    const cardContainer = element.querySelector('.card-container, [class*="card-container"]');
-    let cardEls = [];
-    if (cardContainer) {
-      cardEls = Array.from(cardContainer.querySelectorAll(":scope > .two-card-content, :scope > .enhanced-txt-cm"));
-    }
-    if (cardEls.length === 0) {
-      cardEls = Array.from(element.querySelectorAll(".two-card-content, .enhanced-txt-cm.two-card-content"));
-    }
-    if (cardEls.length === 0) {
+    const cards = element.querySelectorAll(".enhanced-txt-horizontal-card");
+    if (!cards.length) {
       element.replaceWith(...element.childNodes);
       return;
     }
-    const cells = [];
-    cardEls.forEach((card) => {
-      const textRoot = card.querySelector(".subheadline-regular") || card.querySelector(".enhanced-txt-body") || card;
-      const paragraphs = Array.from(textRoot.querySelectorAll(":scope > p"));
-      const paras = paragraphs.length ? paragraphs : Array.from(textRoot.querySelectorAll("p"));
-      if (paras.length === 0) {
-        return;
+    const columns = [];
+    cards.forEach((card) => {
+      const cellChildren = [];
+      const img = card.querySelector(".horizontal-card-image img, img");
+      if (img) cellChildren.push(img);
+      const titleNode = card.querySelector(".horizontal-card-title h3, h3, h2");
+      if (titleNode) {
+        const h3 = document.createElement("h3");
+        h3.textContent = titleNode.textContent.replace(/\s+/g, " ").trim();
+        cellChildren.push(h3);
       }
-      cells.push([paras]);
+      const body = card.querySelector(".horizontal-card-body");
+      if (body) {
+        const p = document.createElement("p");
+        p.append(...body.childNodes);
+        cellChildren.push(p);
+      }
+      card.querySelectorAll(".horizontal-card-cta a, a.ps-btn-secondary, a.ps-btn-primary").forEach((a) => {
+        const p = document.createElement("p");
+        p.append(a);
+        cellChildren.push(p);
+      });
+      if (cellChildren.length) columns.push(cellChildren);
     });
-    if (cells.length === 0) {
+    if (!columns.length) {
       element.replaceWith(...element.childNodes);
       return;
     }
     const block = WebImporter.Blocks.createBlock(document, {
-      name: "cards-testimonials",
-      cells
+      name: "columns",
+      cells: [columns]
     });
-    const heading = element.querySelector(".ps-mid-page-title-wrapper h2, .ps-mid-page-title");
-    const replacements = [];
-    if (heading) {
-      const h2 = document.createElement("h2");
-      h2.textContent = heading.textContent.replace(/\s+/g, " ").trim();
-      replacements.push(h2);
-    }
-    replacements.push(block);
-    element.replaceWith(...replacements);
-  }
-
-  // tools/importer/parsers/cards-text.js
-  function parse8(element, { document }) {
-    const cardItems = element.querySelectorAll(
-      '.ps-marketing-small-promo-item:not(.ps-marketing-small-promo-items), [class*="small-promo-item"]:not(.ps-marketing-small-promo-items)'
-    );
-    const cells = [];
-    cardItems.forEach((item) => {
-      const heading2 = item.querySelector('h3, h4, h2, [class*="title"]');
-      const description = item.querySelector(
-        ".ps-marketing-text-content, .ps-marketing-text > p:not(.learn-more):not(.learn-more-mobile)"
-      );
-      let ctaLink = item.querySelector(".ps-marketing-promo-link a") || item.querySelector("p.learn-more a") || item.querySelector("p.learn-more-mobile a");
-      if (!ctaLink) {
-        const anchors = Array.from(item.querySelectorAll("a")).filter((a) => !a.closest("h1, h2, h3, h4, h5, h6"));
-        if (anchors.length) ctaLink = anchors[0];
-      }
-      if (!heading2 && !description) return;
-      const contentCell = [];
-      if (heading2) contentCell.push(heading2);
-      if (description) contentCell.push(description);
-      if (ctaLink) contentCell.push(ctaLink);
-      const meaningfulText = [heading2, description].filter(Boolean).map((el) => el.textContent || "").join("").replace(/[​‌‍﻿]/g, "").replace(/\s+/g, "").trim();
-      if (!contentCell.length || !meaningfulText) return;
-      cells.push([contentCell]);
-    });
-    if (!cells.length) {
-      element.replaceWith(...element.childNodes);
-      return;
-    }
-    const block = WebImporter.Blocks.createBlock(document, {
-      name: "cards-text",
-      cells
-    });
-    const heading = element.querySelector(".ps-mid-page-title-wrapper h2, .ps-mid-page-title");
-    const replacements = [];
-    if (heading) {
-      const h2 = document.createElement("h2");
-      h2.textContent = heading.textContent.replace(/\s+/g, " ").trim();
-      replacements.push(h2);
-    }
-    replacements.push(block);
-    element.replaceWith(...replacements);
+    element.replaceWith(block);
   }
 
   // tools/importer/parsers/footnotes.js
-  function parse9(element, { document }) {
+  function parse8(element, { document }) {
     const cells = [];
     const children = Array.from(element.children);
     children.forEach((child) => {
@@ -534,7 +500,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/hero-banner.js
-  function parse10(element, { document }) {
+  function parse9(element, { document }) {
     const picture = element.querySelector("picture");
     const img = element.querySelector("img");
     const heading = element.querySelector("h1, h2, h3");
@@ -552,7 +518,7 @@ var CustomImportScript = (() => {
   }
 
   // tools/importer/parsers/promo.js
-  function parse11(element, { document }) {
+  function parse10(element, { document }) {
     const item = element.querySelector(".ps-promo-full-item") || element;
     const image = item.querySelector(".ps-promo-full-image img, img");
     const heading = item.querySelector(".ps-promo-full-content h2, h2, h1, h3");
@@ -584,6 +550,54 @@ var CustomImportScript = (() => {
       cells
     });
     element.replaceWith(block);
+  }
+
+  // tools/importer/parsers/table-compare.js
+  function parse11(element, { document }) {
+    const table = element.querySelector(".table") || element;
+    const headerGroup = table.querySelector(".row-group-header-wrapper");
+    const col1Label = headerGroup && headerGroup.querySelector(".table-column.column1 p, .table-column.column1");
+    const col2Label = headerGroup && headerGroup.querySelector(".table-column.column2 p, .table-column.column2");
+    const rows = [];
+    const headerCell1 = document.createElement("div");
+    const headerCell2 = document.createElement("div");
+    if (col1Label) headerCell1.textContent = col1Label.textContent.replace(/\s+/g, " ").trim();
+    if (col2Label) headerCell2.textContent = col2Label.textContent.replace(/\s+/g, " ").trim();
+    rows.push([document.createElement("div"), headerCell1, headerCell2]);
+    table.querySelectorAll(".table-row.row-header-wrapper").forEach((headerRow) => {
+      const label = headerRow.querySelector(".row-header");
+      let valueRow = headerRow.nextElementSibling;
+      while (valueRow && !(valueRow.classList.contains("table-row") && !valueRow.classList.contains("row-header-wrapper"))) {
+        valueRow = valueRow.nextElementSibling;
+      }
+      if (!valueRow) return;
+      const v1 = valueRow.querySelector(".table-column.column1");
+      const v2 = valueRow.querySelector(".table-column.column2");
+      const labelCell = document.createElement("div");
+      if (label) labelCell.textContent = label.textContent.replace(/\s+/g, " ").trim();
+      const cell1 = document.createElement("div");
+      if (v1) cell1.append(...v1.childNodes);
+      const cell2 = document.createElement("div");
+      if (v2) cell2.append(...v2.childNodes);
+      rows.push([labelCell, cell1, cell2]);
+    });
+    if (rows.length <= 1) {
+      element.replaceWith(...element.childNodes);
+      return;
+    }
+    const block = WebImporter.Blocks.createBlock(document, {
+      name: "table-compare",
+      cells: rows
+    });
+    const replacements = [];
+    const heading = table.querySelector(".table-heading-text, h2");
+    if (heading) {
+      const h2 = document.createElement("h2");
+      h2.textContent = heading.textContent.replace(/\s+/g, " ").trim();
+      replacements.push(h2);
+    }
+    replacements.push(block);
+    element.replaceWith(...replacements);
   }
 
   // tools/importer/transformers/wellsfargo-cleanup.js
@@ -762,125 +776,134 @@ var CustomImportScript = (() => {
     }
   }
 
-  // tools/importer/import-product-landing-page.js
+  // tools/importer/import-biz-product.js
   var parsers = {
-    "accordion": parse,
+    accordion: parse,
     "cards-contact": parse2,
     "cards-icon-bar": parse3,
     "cards-icons": parse4,
     "cards-image": parse5,
     "cards-link-list": parse6,
-    "cards-testimonials": parse7,
-    "cards-text": parse8,
-    "footnotes": parse9,
-    "hero-banner": parse10,
-    "promo": parse11
+    columns: parse7,
+    footnotes: parse8,
+    "hero-banner": parse9,
+    promo: parse10,
+    "table-compare": parse11
   };
-  var PAGE_TEMPLATE = {
-    name: "product-landing-page",
-    description: "Wells Fargo personal product landing page (mortgage, personal loans) with hero/page-title, marketing promo grids, info cards, FAQ accordions, contact bar, and footnotes",
-    urls: [
-      "https://www.wellsfargo.com/mortgage/",
-      "https://www.wellsfargo.com/personal-loans/"
+  var MAIN = "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper";
+  var BLOCKS = [
+    { name: "hero-banner", instances: [`${MAIN} > div.rsk-marquee-container`] },
+    // table-compare must run before cards-* so the comparison matrix is claimed first.
+    { name: "table-compare", instances: [`${MAIN} > div.rsk-compare-table`] },
+    // 3-up image cards ("Find the right line", merchant "Services").
+    { name: "cards-image", instances: [`${MAIN} div.card-container.three-card`] },
+    // 2-up text contact cards (merchant "Connect with us").
+    { name: "cards-contact", instances: [`${MAIN} div.card-container.two-card`] },
+    // grouped link directory ("Customer help / Account tools / Banking basics").
+    { name: "cards-link-list", instances: [`${MAIN} div.card-container.one-card.card-left`] },
+    // icon promo grids. Outer .small-promo-combined wins when present; bare
+    // .ps-marketing-small-promo-items covers pages without the wrapper.
+    {
+      name: "cards-icons",
+      instances: [
+        `${MAIN} > div.small-promo-combined`,
+        `${MAIN} > div.ps-marketing-small-promo-items`
+      ]
+    },
+    // image-beside-text story cards (practice-finance).
+    { name: "columns", instances: [`${MAIN} > div.horizontal-card-container`] },
+    // large full-width promo (practice-finance).
+    { name: "promo", instances: [`${MAIN} > div.ps-large-promo-full-container`] },
+    // FAQ accordion — first <details>; parser absorbs the sibling items.
+    { name: "accordion", instances: [`${MAIN} > details.show-hide-content-wrapper.first-show-hide`] },
+    // "How can we help?" collapsible contact bar.
+    { name: "cards-icon-bar", instances: [`${MAIN} > div.contact-bar-container`] },
+    { name: "footnotes", instances: [`${MAIN} > div.ps-footnote`] }
+  ];
+  var TITLE = `${MAIN} > div.ps-page-title`;
+  var HERO = `${MAIN} > div.rsk-marquee-container`;
+  var ICONS = [`${MAIN} > div.small-promo-combined`, `${MAIN} > div.ps-marketing-small-promo-items`];
+  var THREE_CARD = `${MAIN} div.card-container.three-card`;
+  var TWO_CARD = `${MAIN} div.card-container.two-card`;
+  var LINK_LIST = `${MAIN} div.card-container.one-card.card-left`;
+  var CTA_CENTER = `${MAIN} > div.card-background-white.text-aligned-center`;
+  var CONTACT_BAR = `${MAIN} > div.contact-bar-container`;
+  var ACCORDION = `${MAIN} > details.show-hide-content-wrapper.first-show-hide`;
+  var FAQ_HEAD = `${MAIN} > div.enhanced-txt-cm.text-aligned-left`;
+  var FOOTNOTES = `${MAIN} > div.ps-footnote`;
+  var COMPARE = `${MAIN} > div.rsk-compare-table`;
+  var PROMO = `${MAIN} > div.ps-large-promo-full-container`;
+  var HCARD = `${MAIN} > div.horizontal-card-container`;
+  var TEMPLATES = {
+    "/biz/business-credit/": [
+      { id: "title", selector: TITLE, style: "centered", blocks: [], defaultContent: ["h1"] },
+      { id: "hero", selector: HERO, style: null, blocks: ["hero-banner"], defaultContent: [] },
+      { id: "find-line", selector: THREE_CARD, style: "centered", blocks: ["cards-image"], defaultContent: ["h2"] },
+      { id: "benefits", selector: ICONS, style: "centered", blocks: ["cards-icons"], defaultContent: ["h2"] },
+      { id: "faq", selector: FAQ_HEAD, style: null, blocks: [], defaultContent: ["h2"] },
+      { id: "accordion", selector: ACCORDION, style: null, blocks: ["accordion"], defaultContent: [] },
+      { id: "contact-bar", selector: CONTACT_BAR, style: null, blocks: ["cards-icon-bar"], defaultContent: ["h2"] },
+      { id: "link-list", selector: LINK_LIST, style: null, blocks: ["cards-link-list"], defaultContent: ["h2"] },
+      { id: "footnotes", selector: FOOTNOTES, style: null, blocks: ["footnotes"], defaultContent: [] }
     ],
-    blocks: [
-      {
-        name: "hero-banner",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.rsk-marquee-container"
-        ]
-      },
-      {
-        name: "cards-icons",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.small-promo-combined:nth-of-type(5)",
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.small-promo-combined:nth-of-type(6)",
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.small-promo-combined:nth-of-type(4)"
-        ]
-      },
-      {
-        name: "cards-image",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(7)",
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(6)"
-        ]
-      },
-      {
-        name: "cards-text",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.small-promo-combined:nth-of-type(8)"
-        ]
-      },
-      {
-        name: "cards-testimonials",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(11)"
-        ]
-      },
-      {
-        name: "cards-contact",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(12)"
-        ]
-      },
-      {
-        name: "cards-icon-bar",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.contact-bar-container"
-        ]
-      },
-      {
-        name: "cards-link-list",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(8)"
-        ]
-      },
-      {
-        name: "accordion",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > details.show-hide-content-wrapper.first-show-hide"
-        ]
-      },
-      {
-        name: "footnotes",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.ps-footnote"
-        ]
-      },
-      {
-        name: "promo",
-        instances: [
-          "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.ps-large-promo-full-container"
-        ]
-      }
+    "/biz/sba/": [
+      { id: "title", selector: TITLE, style: "centered", blocks: [], defaultContent: ["h1"] },
+      { id: "hero", selector: HERO, style: null, blocks: ["hero-banner"], defaultContent: [] },
+      { id: "compare", selector: COMPARE, style: "centered", blocks: ["table-compare"], defaultContent: [] },
+      { id: "preferred", selector: ICONS, style: "centered", blocks: ["cards-icons"], defaultContent: ["h2"] },
+      { id: "contact-bar", selector: CONTACT_BAR, style: null, blocks: ["cards-icon-bar"], defaultContent: ["h2"] },
+      { id: "link-list", selector: LINK_LIST, style: null, blocks: ["cards-link-list"], defaultContent: ["h2"] },
+      { id: "footnotes", selector: FOOTNOTES, style: null, blocks: ["footnotes"], defaultContent: [] }
     ],
-    sections: [
-      { id: "page-title", name: "Page title", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.ps-page-title", style: null, blocks: [], defaultContent: ["h1"] },
-      { id: "marquee", name: "Hero marquee", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.rsk-marquee-container", style: "image-banner", blocks: ["hero-banner"], defaultContent: [] },
-      { id: "rate-quote-cta", name: "Rate quote CTA", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.enhanced-txt-cm.text-aligned-center", style: "centered", blocks: [], defaultContent: ["h3", "p"] },
-      { id: "homebuying-steps", name: "Homebuying steps", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.small-promo-combined:nth-of-type(5)", style: null, blocks: ["cards-icons"], defaultContent: [".ps-mid-page-title-wrapper h2", ".ps-padding"] },
-      { id: "refinance-benefits", name: "Refinance benefits", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.small-promo-combined:nth-of-type(6)", style: null, blocks: ["cards-icons"], defaultContent: [".ps-mid-page-title-wrapper h2", ".ps-padding"] },
-      { id: "mortgage-benefits-3card", name: "Mortgage benefits 3-card", selector: ["#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(7)", "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(6)"], style: "white, centered", blocks: ["cards-image"], defaultContent: [".ps-mid-page-title-wrapper h2"] },
-      { id: "mortgage-tools", name: "Mortgage tools", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.small-promo-combined:nth-of-type(8)", style: null, blocks: ["cards-text"], defaultContent: [".ps-mid-page-title-wrapper h2"] },
-      { id: "faq-heading", name: "FAQ heading", selector: ["#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(9)", "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(7)"], style: "white", blocks: [], defaultContent: ["h2"] },
-      { id: "faq-accordion", name: "FAQ accordion", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > details.show-hide-content-wrapper.first-show-hide", style: "white", blocks: ["accordion"], defaultContent: [] },
-      { id: "faq-cta", name: "FAQ CTA", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(10)", style: "white", blocks: [], defaultContent: ["a"] },
-      { id: "testimonials", name: "Testimonials", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(11)", style: "white, centered", blocks: ["cards-testimonials"], defaultContent: [".ps-mid-page-title-wrapper h2"] },
-      { id: "contact-consultant", name: "Talk to consultant", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(12)", style: "white, centered", blocks: ["cards-contact"], defaultContent: [".ps-mid-page-title-wrapper h2"] },
-      { id: "helpful-resources", name: "Helpful resources", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.card-background-white.text-aligned-center:nth-of-type(8)", style: "white", blocks: ["cards-link-list"], defaultContent: [".ps-mid-page-title-wrapper h2"] },
-      { id: "quick-help", name: "Quick help", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.enhanced-txt-cm.text-aligned-left:nth-of-type(13)", style: null, blocks: [], defaultContent: ["h3", "ul"] },
-      { id: "disclaimer", name: "Disclaimer", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.enhanced-txt-cm.text-aligned-left:nth-of-type(14)", style: null, blocks: [], defaultContent: ["p"] },
-      { id: "footnotes", name: "Footnotes", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.ps-footnote", style: null, blocks: ["footnotes"], defaultContent: [] },
-      { id: "gap-large-promo", name: "Large promo", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.ps-large-promo-full-container", style: "grey", blocks: ["promo"], defaultContent: [] },
-      { id: "gap-contact-bar", name: "Contact bar", selector: "#ps-rsk-foundation > div.ps-body-container > main.ps-body-wrapper > div.contact-bar-container", style: null, blocks: ["cards-icon-bar"], defaultContent: ["h2"] }
+    "/biz/practice-finance-medical-dental-loans/": [
+      { id: "title", selector: TITLE, style: "centered", blocks: [], defaultContent: ["h1"] },
+      { id: "hero", selector: HERO, style: null, blocks: ["hero-banner"], defaultContent: [] },
+      { id: "value-props", selector: `${MAIN} > div.ps-marketing-small-promo-items`, style: "centered", blocks: ["cards-icons"], defaultContent: [] },
+      { id: "columns", selector: HCARD, style: "centered", blocks: ["columns"], defaultContent: ["h2"] },
+      { id: "features", selector: `${MAIN} > div.ps-marketing-small-promo-items:nth-of-type(2)`, style: "centered", blocks: ["cards-icons"], defaultContent: [] },
+      { id: "promo", selector: PROMO, style: "grey", blocks: ["promo"], defaultContent: [] },
+      { id: "footnotes", selector: FOOTNOTES, style: null, blocks: ["footnotes"], defaultContent: [] }
+    ],
+    "/biz/signify-rewards/": [
+      { id: "title", selector: TITLE, style: "centered", blocks: [], defaultContent: ["h1"] },
+      { id: "hero", selector: HERO, style: null, blocks: ["hero-banner"], defaultContent: [] },
+      // Loose "Connect to Wells Fargo Vantage" CTA between hero and the icon grid.
+      { id: "vantage-cta", selector: `${MAIN} > div.enhanced-txt-cm.text-aligned-center:nth-of-type(4)`, style: "centered", blocks: [], defaultContent: ["a"] },
+      { id: "choices", selector: ICONS, style: "centered", blocks: ["cards-icons"], defaultContent: ["h2"] },
+      { id: "need-card", selector: `${MAIN} > div.card-background-gray.text-aligned-center`, style: "grey", blocks: [], defaultContent: ["h2", "a"] },
+      // Loose "Looking for consumer rewards?" CTA between the grey band and the FAQ.
+      { id: "consumer-cta", selector: `${MAIN} > div.enhanced-txt-cm.text-aligned-center:nth-of-type(7)`, style: "centered", blocks: [], defaultContent: ["a"] },
+      { id: "faq", selector: FAQ_HEAD, style: null, blocks: [], defaultContent: ["h2"] },
+      { id: "accordion", selector: ACCORDION, style: null, blocks: ["accordion"], defaultContent: [] },
+      { id: "footnotes", selector: FOOTNOTES, style: null, blocks: ["footnotes"], defaultContent: [] }
+    ],
+    "/biz/merchant/": [
+      { id: "title", selector: TITLE, style: "centered", blocks: [], defaultContent: ["h1"] },
+      { id: "hero", selector: HERO, style: null, blocks: ["hero-banner"], defaultContent: [] },
+      { id: "services", selector: THREE_CARD, style: "centered", blocks: ["cards-image"], defaultContent: ["h2"] },
+      { id: "connect", selector: TWO_CARD, style: "centered", blocks: ["cards-contact"], defaultContent: ["h2"] },
+      { id: "footnotes", selector: FOOTNOTES, style: null, blocks: ["footnotes"], defaultContent: [] }
     ]
   };
-  var transformers = [
-    transform,
-    ...PAGE_TEMPLATE.sections && PAGE_TEMPLATE.sections.length > 1 ? [transform2] : []
-  ];
-  function executeTransformers(hookName, element, payload) {
-    const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template: PAGE_TEMPLATE });
+  function pathnameOf(url) {
+    try {
+      const p = new URL(url).pathname;
+      return p.endsWith("/") ? p : `${p}/`;
+    } catch (e) {
+      return url;
+    }
+  }
+  function templateForUrl(url) {
+    const path = pathnameOf(url);
+    const sections = TEMPLATES[path] || [];
+    return {
+      name: "biz-product",
+      blocks: BLOCKS,
+      sections
+    };
+  }
+  function executeTransformers(transformers, hookName, element, payload, template) {
+    const enhancedPayload = __spreadProps(__spreadValues({}, payload), { template });
     transformers.forEach((transformerFn) => {
       try {
         transformerFn.call(null, hookName, element, enhancedPayload);
@@ -904,24 +927,24 @@ var CustomImportScript = (() => {
         elements.forEach((element) => {
           if (seen.has(element)) return;
           seen.add(element);
-          pageBlocks.push({
-            name: blockDef.name,
-            selector,
-            element,
-            section: blockDef.section || null
-          });
+          pageBlocks.push({ name: blockDef.name, selector, element });
         });
       });
     });
     console.log(`Found ${pageBlocks.length} block instances on page`);
     return pageBlocks;
   }
-  var import_product_landing_page_default = {
+  var import_biz_product_default = {
     transform: (payload) => {
-      const { document, url, html, params } = payload;
+      const { document, url, params } = payload;
       const main = document.body;
-      executeTransformers("beforeTransform", main, payload);
-      const pageBlocks = findBlocksOnPage(document, PAGE_TEMPLATE);
+      const template = templateForUrl(params.originalURL || url);
+      const transformers = [
+        transform,
+        ...template.sections && template.sections.length > 1 ? [transform2] : []
+      ];
+      executeTransformers(transformers, "beforeTransform", main, payload, template);
+      const pageBlocks = findBlocksOnPage(document, template);
       pageBlocks.forEach((block) => {
         if (!block.element.parentNode) return;
         const parser = parsers[block.name];
@@ -935,7 +958,11 @@ var CustomImportScript = (() => {
           console.warn(`No parser found for block: ${block.name}`);
         }
       });
-      executeTransformers("afterTransform", main, payload);
+      executeTransformers(transformers, "afterTransform", main, payload, template);
+      try {
+        window.__tmain = main.innerHTML;
+      } catch (e) {
+      }
       const hr = document.createElement("hr");
       main.appendChild(hr);
       WebImporter.rules.createMetadata(main, document);
@@ -949,11 +976,11 @@ var CustomImportScript = (() => {
         path,
         report: {
           title: document.title,
-          template: PAGE_TEMPLATE.name,
+          template: template.name,
           blocks: pageBlocks.map((b) => b.name)
         }
       }];
     }
   };
-  return __toCommonJS(import_product_landing_page_exports);
+  return __toCommonJS(import_biz_product_exports);
 })();

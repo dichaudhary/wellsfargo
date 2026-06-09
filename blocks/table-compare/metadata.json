@@ -1,0 +1,39 @@
+{
+  "variantName": "table-compare",
+  "baseBlock": "table",
+  "version": "1.0.0",
+  "created": "2026-06-08T09:35:00.000000Z",
+  "sourceContext": {
+    "originUrl": "https://www.wellsfargo.com/biz/sba/",
+    "originPage": "SBA business landing page",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "white",
+    "density": "compact",
+    "purpose": "feature-comparison",
+    "imagePattern": "none"
+  },
+  "contentPattern": {
+    "structure": "header row of comparison column labels + repeated rows of (row-header label + one value cell per column)",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "side-by-side product/loan feature comparison tables (e.g. SBA 7(a) vs SBA 504)",
+      "spec / plan comparison matrices with a labelled row-header per row",
+      "rsk-compare-table (.rsk-compare-table) two-column comparison grids"
+    ],
+    "notSuitableFor": [
+      "repeating image+text card grids (use cards-image / cards-icons)",
+      "single image-beside-text story layouts (use columns)",
+      "free-form data tables without comparison columns"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/biz/sba/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-06-08T09:35:00.000000Z"
+  }
+}

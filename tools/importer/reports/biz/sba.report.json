@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "url": "https://www.wellsfargo.com/biz/sba/",
+  "path": "biz/sba",
+  "timestamp": "2026-06-08T10:08:47.974Z",
+  "title": "SBA 7(a) and SBA 504 Loans for Business Financing | Wells Fargo",
+  "template": "biz-product",
+  "blocks": [
+    "hero-banner",
+    "table-compare",
+    "cards-link-list",
+    "cards-icons",
+    "cards-icon-bar",
+    "footnotes"
+  ]
+}

@@ -13,6 +13,10 @@
  *   - Cards flow in a centered flex row, 32px gap, 3-up on desktop.
  */
 
+.cards-image {
+  text-align: center;
+}
+
 .cards-image > ul {
   list-style: none;
   margin: 0;
@@ -56,13 +60,13 @@
   font-family: var(--body-font-family);
 }
 
-/* h3: SemiBold 24px / 34px line-height, near-black. */
+/* h3: Light 26px / line-height ~1.31, near-black. */
 .cards-image .cards-image-card-body h3 {
   margin: 0 0 17px;
-  font-family: var(--heading-font-family);
-  font-size: 24px;
-  font-weight: 600;
-  line-height: 1.42;
+  font-family: var(--light-font-family);
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1.31;
   color: var(--heading-color);
 }
 
@@ -70,7 +74,7 @@
   margin: 0 0 20px;
   font-size: 17px;
   line-height: 1.3;
-  color: var(--heading-color);
+  color: var(--text-color);
 }
 
 .cards-image .cards-image-card-body p:last-child {

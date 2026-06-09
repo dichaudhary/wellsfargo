@@ -35,9 +35,10 @@
   "usage": {
     "pagesUsing": [
       "/com/index",
-      "/mortgage/buying-a-house/specialized-financing/index"
+      "/mortgage/buying-a-house/specialized-financing/index",
+      "/biz/practice-finance-medical-dental-loans/index"
     ],
-    "reuseCount": 2,
-    "lastUsed": "2026-06-05T09:00:00.000Z"
+    "reuseCount": 3,
+    "lastUsed": "2026-06-08T09:36:26.656Z"
   }
 }

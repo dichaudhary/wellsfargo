@@ -65,6 +65,8 @@ export default function transform(hookName, element, payload) {
       'footer.ps-responsive-footer',           // global footer
       'div#onetrust-consent-sdk',              // OneTrust cookie banner
       'div#feedbackSurvey',                    // inline feedback widget
+      'div.ep-modal',                          // ComeHome "leaving Wells Fargo" + language-pref interstitial dialogs (after </main>)
+      'div.bottom-sheet-container',            // mobile bottom-sheet overlay (leaks a stray "Footnote" h2)
       'a.hidden[href="#skip"]',                // "Skip to main content" anchor
       'script',                                // any inline tracking scripts
       'noscript',                              // noscript fallbacks
@@ -120,11 +122,32 @@ export default function transform(hookName, element, payload) {
       'div#onetrust-consent-sdk',
       'div#feedbackSurvey',
       'div#containerL3Mobile',
+      'div.ep-modal',                          // ComeHome leaving-site interstitials (defensive re-pass)
+      'div.bottom-sheet-container',            // mobile bottom-sheet overlay (defensive re-pass)
       'iframe',
       'script',
       'noscript',
       'link',
     ]);
+
+    // Runtime-injected interstitials/pixels not present in the scraped DOM but
+    // observed leaking into imported content. (a) Spanish language-toggle dialog
+    // ("Esta página solo está disponible en inglés"). Its node is injected at
+    // runtime so we match defensively on the announcement <h2> text and remove
+    // its nearest dialog/modal container. (b) analytics tracking pixels.
+    element.querySelectorAll('h2, h3').forEach((h) => {
+      if (/disponible en ingl[eé]s/i.test(h.textContent || '')) {
+        const container = h.closest('div.ep-modal, [role="dialog"], div.modal') || h.parentElement;
+        if (container) container.remove();
+      }
+    });
+    // Analytics tracking pixels (Yahoo dot-pixel, global s.gif spacer/beacon).
+    element.querySelectorAll('img[src]').forEach((img) => {
+      const src = img.getAttribute('src') || '';
+      if (/sp\.analytics\.yahoo\.com/i.test(src) || /\/global\/s\.gif/i.test(src)) {
+        img.remove();
+      }
+    });
 
     // ZWNJ-only spans/divs the original CSS used as decorative spacers
     // (e.g. `ps-mid-page-title-top-line`, `contact-bar-location-icon`,

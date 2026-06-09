@@ -32,8 +32,8 @@
     ]
   },
   "usage": {
-    "pagesUsing": ["/mortgage/index"],
-    "reuseCount": 1,
-    "lastUsed": "2026-06-03T09:35:00.000Z"
+    "pagesUsing": ["/mortgage/index", "/biz/business-credit/index"],
+    "reuseCount": 2,
+    "lastUsed": "2026-06-08T09:21:12.914Z"
   }
 }

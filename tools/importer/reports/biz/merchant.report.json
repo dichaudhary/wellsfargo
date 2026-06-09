@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://www.wellsfargo.com/biz/merchant/",
+  "path": "biz/merchant",
+  "timestamp": "2026-06-08T13:18:20.009Z",
+  "title": "Merchant Services, Payment Processing & POS | Wells Fargo",
+  "template": "biz-product",
+  "blocks": [
+    "hero-banner",
+    "cards-image",
+    "cards-contact",
+    "footnotes"
+  ]
+}

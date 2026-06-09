@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "https://www.wellsfargo.com/biz/signify-rewards/",
+  "path": "biz/signify-rewards",
+  "timestamp": "2026-06-08T13:11:54.892Z",
+  "title": "Wells Fargo Business Rewards | Signify by Wells Fargo",
+  "template": "biz-product",
+  "blocks": [
+    "hero-banner",
+    "cards-icons",
+    "accordion",
+    "footnotes"
+  ]
+}

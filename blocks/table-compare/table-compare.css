@@ -1,0 +1,134 @@
+/*
+ * Table Compare Block
+ * Side-by-side feature comparison matrix.
+ * Visual design extracted from Wells Fargo SBA page comparison table:
+ * https://www.wellsfargo.com/biz/sba/
+ *
+ * Source layout: two equal value columns (50% each) with centered content,
+ * a full-width bold row label above each feature, a thin grey divider beneath
+ * each label, and a dark grey accent bar under each column header.
+ */
+
+.table-compare.block {
+  --table-compare-text-color: #3b3331;
+  --table-compare-divider-color: #d9d9d9;
+  --table-compare-accent-color: #6f6a6a;
+  --table-compare-col-gap: 16px;
+
+  width: 100%;
+}
+
+.table-compare.block table {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  color: var(--table-compare-text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  line-height: 1.3;
+}
+
+/* Reset paragraph spacing inside cells */
+.table-compare.block table th p,
+.table-compare.block table td p {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: 1.3;
+}
+
+.table-compare.block table td p + p {
+  margin-top: 0.25em;
+}
+
+/*
+ * Mobile-first: render each row as a stacked block.
+ * thead row and every tbody row become full-width blocks; the value cells
+ * sit side by side as 50% inline blocks, the row label spans full width.
+ */
+.table-compare.block table thead,
+.table-compare.block table tbody,
+.table-compare.block table tr {
+  display: block;
+  width: 100%;
+}
+
+.table-compare.block table th,
+.table-compare.block table td {
+  box-sizing: border-box;
+  padding: 0;
+  text-align: center;
+  vertical-align: top;
+}
+
+/* ----- Header row (thead): empty corner + two column titles ----- */
+
+.table-compare.block table thead th {
+  display: inline-block;
+  width: calc(50% - (var(--table-compare-col-gap) / 2));
+  padding-bottom: 12px;
+  border-bottom: 4px solid var(--table-compare-accent-color);
+  color: var(--table-compare-text-color);
+  font-family: var(--light-font-family);
+  font-size: 18px;
+  font-weight: 300;
+  vertical-align: bottom;
+}
+
+/* First (empty) corner cell is hidden from layout */
+.table-compare.block table thead th:first-child {
+  display: none;
+}
+
+/* Gap between the two header columns */
+.table-compare.block table thead th:nth-child(2) {
+  margin-right: var(--table-compare-col-gap);
+}
+
+/* ----- Feature rows (tbody) ----- */
+
+/* Row label cell: full-width, bold, centered, divider below */
+.table-compare.block table tbody td:first-child {
+  display: block;
+  width: 100%;
+  padding: 24px 16px 16px;
+  border-bottom: 1px solid var(--table-compare-divider-color);
+  color: var(--table-compare-text-color);
+  font-family: var(--heading-font-family);
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.table-compare.block table tbody td:first-child p {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Value cells: two equal columns, centered, with top spacing */
+.table-compare.block table tbody td:nth-child(2),
+.table-compare.block table tbody td:nth-child(3) {
+  display: inline-block;
+  width: calc(50% - (var(--table-compare-col-gap) / 2));
+  padding: 24px 8px 0;
+  vertical-align: top;
+}
+
+.table-compare.block table tbody td:nth-child(2) {
+  margin-right: var(--table-compare-col-gap);
+}
+
+/* Bottom spacing on the last feature row's value cells */
+.table-compare.block table tbody tr:last-child td:nth-child(2),
+.table-compare.block table tbody tr:last-child td:nth-child(3) {
+  padding-bottom: 24px;
+}
+
+/* Footnote / link styling inside cells keeps brand link color */
+.table-compare.block table td a:any-link {
+  color: var(--link-color);
+}
+
+.table-compare.block table td sup {
+  font-size: 0.7em;
+}

@@ -42,8 +42,8 @@ export default function parse(element, { document }) {
     // <img> directly under .mark-small-promo-icon is a decorative bullet — skip it.
     const icon = item.querySelector('.ps-marketing-icon img, .ps-marketing-icon-container img');
 
-    // HEADING: card title.
-    const heading = item.querySelector('.ps-marketing-text h3, h3');
+    // HEADING: card title. Some pages author it as h2/h4 instead of h3.
+    const heading = item.querySelector('.ps-marketing-text h3, .ps-marketing-text h2, .ps-marketing-text h4, h3, h2, h4');
 
     // DESCRIPTION: card body copy.
     const description = item.querySelector('.ps-marketing-text p.ps-marketing-text-content, .ps-marketing-text p:not(.learn-more):not(.learn-more-mobile)');

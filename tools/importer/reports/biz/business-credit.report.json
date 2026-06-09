@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "url": "https://www.wellsfargo.com/biz/business-credit/",
+  "path": "biz/business-credit",
+  "timestamp": "2026-06-08T10:07:54.517Z",
+  "title": "Small Business Loans and Lines of Credit | Wells Fargo",
+  "template": "biz-product",
+  "blocks": [
+    "hero-banner",
+    "cards-image",
+    "cards-link-list",
+    "cards-icons",
+    "accordion",
+    "cards-icon-bar",
+    "footnotes"
+  ]
+}

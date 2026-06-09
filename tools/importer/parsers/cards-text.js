@@ -18,9 +18,11 @@
  */
 export default function parse(element, { document }) {
   // Locate each card item. Primary selector matches the documented Wells Fargo
-  // markup; the class-substring selector is a defensive fallback.
+  // markup; the class-substring selector is a defensive fallback. The plural
+  // container `.ps-marketing-small-promo-items` also matches the substring
+  // selector, so exclude it — otherwise it surfaces as a phantom leading card.
   const cardItems = element.querySelectorAll(
-    '.ps-marketing-small-promo-item, [class*="small-promo-item"]',
+    '.ps-marketing-small-promo-item:not(.ps-marketing-small-promo-items), [class*="small-promo-item"]:not(.ps-marketing-small-promo-items)',
   );
 
   const cells = [];
@@ -55,6 +57,23 @@ export default function parse(element, { document }) {
     if (heading) contentCell.push(heading);
     if (description) contentCell.push(description);
     if (ctaLink) contentCell.push(ctaLink);
+
+    // Robust empty-card guard. The Wells Fargo CMS emits decorative/spacer
+    // promo items whose heading element exists but contains only zero-width
+    // glyphs (ZWSP U+200B, ZWNJ U+200C, ZWJ U+200D, BOM U+FEFF) and/or
+    // whitespace. Element-existence checks above let those through and render
+    // a blank leading card that breaks the grid. Compute the combined visible
+    // text of heading + description (the CTA alone is not enough to justify a
+    // card) and skip the item if nothing meaningful remains.
+    const meaningfulText = [heading, description]
+      .filter(Boolean)
+      .map((el) => (el.textContent || ''))
+      .join('')
+      // strip zero-width and BOM characters, then collapse whitespace
+      .replace(/[​‌‍﻿]/g, '')
+      .replace(/\s+/g, '')
+      .trim();
+    if (!contentCell.length || !meaningfulText) return;
 
     cells.push([contentCell]);
   });
